@@ -26,15 +26,11 @@ jobs:
         with:
           cmd: build:client
 
-      - run: cd ./packages/pl.client
-
-      - run: ls
-
       - name: Create Artifact
         uses: actions/upload-artifact@v3
         with:
           name: pl-client
-          path: dist
+          path: ./packages/pl.client/dist
 
 
 
