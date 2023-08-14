@@ -1,0 +1,19 @@
+{
+  "name": "riogz.dev",
+  "version": "1.0.0",
+  "repository": "git@github.com:riogod/riogz.dev.git",
+  "author": "riogod <riogod@gmail.com>",
+  "license": "MIT",
+  "private": true,
+  "workspaces": [
+    "libs/*",
+    "packages/*",
+    "apps/*"
+  ],
+  "engines": {
+    "node": ">=18.12.0",
+    "yarn": ">=1.22.0",
+    "npm": "please-use-yarn"
+  }
+}
+
