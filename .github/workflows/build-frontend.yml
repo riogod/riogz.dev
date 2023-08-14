@@ -46,7 +46,7 @@ jobs:
         uses: actions/download-artifact@v3
         with:
           name: pl-client
-          path: packages/pl.client/dist
+          path: dist
 
       - name: test
         run: ls
