@@ -28,6 +28,8 @@ jobs:
 
       - run: cd packages/pl.client
 
+      - run: ls
+
       - name: Create Artifact
         uses: actions/upload-artifact@v3
         with:
