@@ -12,11 +12,9 @@ function App() {
           <img src={dog} className="logo react" alt="React logo" />
         </a>
       </div>
-      <div className="card">
-
-      </div>
       <div className="read-the-docs">
-          We working on it ...
+          We working on it ...<br/>
+          really ...
       </div>
     </>
   )
