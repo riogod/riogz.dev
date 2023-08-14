@@ -3,14 +3,13 @@ on:
   workflow_dispatch:
     inputs:
       logLevel:
-        description: 'Log level'
-#        required: true
-        default: 'warning'
+        description: 'Build to:'
+        required: true
+        default: 'staged'
         type: choice
         options:
-          - info
-          - warning
-          - debug
+          - production
+          - staged
       print_tags:
         description: 'True to print to STDOUT'
 #        required: true
