@@ -1,5 +1,5 @@
 name: Build and deploy frontend
-on: workflow_run
+on: workflow_dispatch
 
 env:
   DOCKER_HUB_USER: riogod
