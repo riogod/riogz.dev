@@ -27,16 +27,18 @@ jobs:
           cmd: build:client
 
       - name: test
-        run: |
-          ls
-          cd packages/pl.client/dist
-          ls
+        run: ls
+      - run: cd packages/pl.client/dist
+      - run: ls
 
   docker:
     name: Make docker
     runs-on: ubuntu-latest
     needs: build
     steps:
+      - name: test
+        run: ls
+
       - name: Docker meta
         id: meta
         uses: docker/metadata-action@v4
