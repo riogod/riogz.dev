@@ -30,7 +30,7 @@ jobs:
         uses: actions/upload-artifact@v3
         with:
           name: pl-client
-          path: ./packages/pl.client/dist
+          path: packages/pl.client/dist
 
   docker:
     name: Make docker
@@ -41,7 +41,7 @@ jobs:
         uses: actions/download-artifact@v3
         with:
           name: pl-client
-          path: ./packages/pl.client/dist
+          path: packages/pl.client/dist
 
       - name: Docker meta
         id: meta
@@ -67,7 +67,7 @@ jobs:
         uses: docker/build-push-action@v3
         with:
           context: .
-          file: ./packages/pl.client/Dockerfile
+          file: packages/pl.client/Dockerfile
           platforms: linux/amd64,linux/arm64
           push: true
           tags: ${{ steps.meta.outputs.tags }}
