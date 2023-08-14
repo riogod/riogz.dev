@@ -25,6 +25,17 @@ jobs:
         uses: borales/actions-yarn@v4
         with:
           cmd: build:client
+
+      - name: test
+        run: |
+          ls
+          cd packages/pl.client/dist
+          ls
+
+  docker:
+    name: Build
+    runs-on: ubuntu-latest
+    steps:
       - name: Docker meta
         id: meta
         uses: docker/metadata-action@v4
@@ -44,3 +55,7 @@ jobs:
         with:
           username: ${{ env.DOCKER_HUB_USER }}
           password: ${{ secrets.DOCKER_HUB_TOKEN }}
+
+      - name: test
+        run: |
+          ls
