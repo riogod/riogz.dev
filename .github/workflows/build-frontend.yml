@@ -120,7 +120,4 @@ jobs:
             cd /usr/local/riogz.dev
             docker-compose pull 
             docker-compose up -d
-#            docker pull ${{ env.DOCKER_HUB_USER }}/${{ env.IMAGE_NAME }}:latest
-#            docker stop helloworld
-#            docker start helloworld
-#            docker image prune -a -f
+            docker image prune -a -f
