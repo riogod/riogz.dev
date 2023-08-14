@@ -3,7 +3,7 @@ on: workflow_dispatch
 
 env:
   DOCKER_HUB_USER: riogod
-  IMAGE_NAME: riogod/riogz.dev
+  IMAGE_NAME: riogz.dev-client
 
 jobs:
   build:
@@ -26,10 +26,15 @@ jobs:
         with:
           cmd: build:client
 
-      - name: test
-        run: ls
-      - run: cd packages/pl.client/dist
-      - run: ls
+      - run: cd packages/pl.client
+
+      - name: Create Artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: pl-client
+          path: dist
+
+
 
   docker:
     name: Make docker
