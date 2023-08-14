@@ -43,6 +43,9 @@ jobs:
           name: pl-client
           path: packages/pl.client/dist
 
+      - name: test
+        run: ls
+
       - name: Docker meta
         id: meta
         uses: docker/metadata-action@v4
