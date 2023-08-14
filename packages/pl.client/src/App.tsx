@@ -14,7 +14,7 @@ function App() {
       </div>
       <div className="read-the-docs">
           We working on it ...<br/>
-          really ...
+          soon ...
       </div>
     </>
   )
