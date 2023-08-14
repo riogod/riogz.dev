@@ -1,4 +1,4 @@
-name: remote ssh command
+name: Build and deploy frontend
 on: [push]
 jobs:
   build:
@@ -19,4 +19,4 @@ jobs:
       - name: Build production bundle
         uses: borales/actions-yarn@v4
         with:
-          cmd: build
+          cmd: build:client
