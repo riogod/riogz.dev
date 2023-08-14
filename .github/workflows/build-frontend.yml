@@ -95,4 +95,4 @@ jobs:
           script: |
             docker pull ${{ env.DOCKER_HUB_USER }}/${{ env.IMAGE_NAME }}:latest
             docker-compose up -d helloworld
-            docker image prune -a -f
+#            docker image prune -a -f
