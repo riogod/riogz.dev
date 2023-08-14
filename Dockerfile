@@ -2,5 +2,5 @@ FROM crccheck/hello-world
 
 WORKDIR /www
 
-COPY ./dist .
+COPY packages/pl.client/dist .
 
