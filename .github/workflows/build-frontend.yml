@@ -119,4 +119,4 @@ jobs:
             cd /usr/local/riogz.dev
             docker-compose pull 
             docker-compose up -d
-            docker image prune -a -f
+#            docker image prune -a -f
