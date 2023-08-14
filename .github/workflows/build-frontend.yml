@@ -76,7 +76,22 @@ jobs:
         with:
           context: .
           file: packages/pl.client/Dockerfile
-#          platforms: linux/amd64,linux/arm64
           push: true
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
+
+  run:
+    name: Update image
+    runs-on: ubuntu-latest
+    steps:
+      - name: multiple command
+        uses: appleboy/ssh-action@v1.0.0
+        with:
+          host: ${{ secrets.SSH_HOST }}
+          username: ${{ secrets.SSH_SERVER_USER }}
+          key: ${{ secrets.SSH_SERVER_SSHKEY }}
+          port: ${{ secrets.SSH_PORT }}
+          script: |
+            docker pull ${{ env.DOCKER_HUB_USER }}/${{ env.IMAGE_NAME }}:latest
+            docker-compose up -d helloworld
+            docker image prune -a -f
