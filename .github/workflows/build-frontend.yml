@@ -116,6 +116,8 @@ jobs:
           key: ${{ secrets.SSH_SERVER_SSHKEY }}
           port: ${{ secrets.SSH_PORT }}
           script: |
+            ls
+            cd /usr/local/riogz.dev
             docker-compose pull 
             docker-compose up -d
 #            docker pull ${{ env.DOCKER_HUB_USER }}/${{ env.IMAGE_NAME }}:latest
