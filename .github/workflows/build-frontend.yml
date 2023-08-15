@@ -115,8 +115,11 @@ jobs:
           key: ${{ secrets.SSH_SERVER_SSHKEY }}
           port: ${{ secrets.SSH_PORT }}
           script: |
-            ls
-            cd /usr/local/riogz.dev
-            docker-compose pull 
-            docker-compose up -d
-#            docker image prune -a -f
+            docker pull ${{ env.DOCKER_HUB_USER }}/${{ env.IMAGE_NAME }}:latest
+            docker stop $(docker ps -a | grep ${{ env.DOCKER_HUB_USER }}/${{ env.IMAGE_NAME }} | awk '{print $1}')
+            docker run -d -p 8000:8000 riogod/riogz.dev-client:latest
+#            ls
+#            cd /usr/local/riogz.dev
+#            docker-compose pull
+#            docker-compose up -d
+            docker image prune -a -f
