@@ -13,8 +13,8 @@ function App() {
         </a>
       </div>
       <div className="read-the-docs">
-          We working on it ...<br/>
-          soon ... %) <br/>
+          Nothing here...<br/>
+          really... %) <br/>
       </div>
     </>
   )
