@@ -14,7 +14,7 @@ function App() {
       </div>
       <div className="read-the-docs">
           Nothing here...<br/>
-          really... %) <br/>
+          really!... %) <br/>
       </div>
     </>
   )
