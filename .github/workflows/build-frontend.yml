@@ -102,22 +102,22 @@ jobs:
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
 
-  run:
-    name: Update image
-    runs-on: ubuntu-latest
-    needs: docker
-    steps:
-      - name: multiple command
-        uses: appleboy/ssh-action@v1.0.0
-        with:
-          host: ${{ secrets.SSH_HOST }}
-          username: ${{ secrets.SSH_SERVER_USER }}
-          key: ${{ secrets.SSH_SERVER_SSHKEY }}
-          port: ${{ secrets.SSH_PORT }}
-          script: |
-            docker pull ${{ env.DOCKER_HUB_USER }}/${{ env.IMAGE_NAME }}:latest
-            docker stop $(docker ps -a | grep ${{ env.DOCKER_HUB_USER }}/${{ env.IMAGE_NAME }} | awk '{print $1}')
-            docker run -d -p 8000:8000 riogod/riogz.dev-client:latest
+#  run:
+#    name: Update image
+#    runs-on: ubuntu-latest
+#    needs: docker
+#    steps:
+#      - name: multiple command
+#        uses: appleboy/ssh-action@v1.0.0
+#        with:
+#          host: ${{ secrets.SSH_HOST }}
+#          username: ${{ secrets.SSH_SERVER_USER }}
+#          key: ${{ secrets.SSH_SERVER_SSHKEY }}
+#          port: ${{ secrets.SSH_PORT }}
+#          script: |
+#            docker pull ${{ env.DOCKER_HUB_USER }}/${{ env.IMAGE_NAME }}:latest
+#            docker stop $(docker ps -a | grep ${{ env.DOCKER_HUB_USER }}/${{ env.IMAGE_NAME }} | awk '{print $1}')
+#            docker run -d -p 8000:8000 riogod/riogz.dev-client:latest
 #            docker image prune -a -f
 #            ls
 #            cd /usr/local/riogz.dev
