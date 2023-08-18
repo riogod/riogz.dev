@@ -103,4 +103,5 @@ jobs:
             docker compose -f /usr/local/riogz.dev/docker-compose.yml up -d helloworld
             docker images
             docker images -f=reference='riogod/riogz.dev-client' -f dangling=true -q
+            docker rm $(docker images -f=reference='riogod/riogz.dev-client' -f dangling=true -q)
             docker rmi $(docker images -f=reference='riogod/riogz.dev-client' -f dangling=true -q)
