@@ -48,10 +48,10 @@ jobs:
           context: .
           file: packages/api/prod.Dockerfile
           push: true
-          tags: |
+          tags: ${{ steps.meta.outputs.tags }}
+          labels: |
             "api"
-            ${{ steps.meta.outputs.tags }}
-          labels: ${{ steps.meta.outputs.labels }}
+            ${{ steps.meta.outputs.labels }}
           secrets: |
             "NODE_ENV=${{ secrets.NODE_ENV }}"
             "APP_PORT=${{ secrets.APP_PORT }}"
