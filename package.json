@@ -12,7 +12,6 @@
   "scripts": {
 
     "build:client": "yarn workspace @riogz/client build"
-
   },
   "engines": {
     "node": ">=18.12.0",
