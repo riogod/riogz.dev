@@ -112,9 +112,4 @@ jobs:
             docker pull ${{ env.DOCKER_HUB_USER }}/${{ env.IMAGE_NAME }}:latest
             docker stop helloworld
             docker compose -f /usr/local/riogz.dev/docker-compose.yml up -d helloworld
-#            docker run -d -p 8000:8000 riogod/riogz.dev-client:latest
-#            docker image prune -a -f
-#            ls
-#            cd /usr/local/riogz.dev
-#            docker-compose pull
-#            docker-compose up -d
+            docker rmi $(docker images -f=reference='riogod/riogz.dev-client' -f dangling=true -q)
