@@ -9,7 +9,7 @@ RUN cd /usr/src/app && yarn install
 COPY ./packages/api/wait-for-it.sh /opt/wait-for-it.sh
 COPY ./packages/api/startup.ci.sh /opt/startup.ci.sh
 RUN sed -i 's/\r//g' /opt/wait-for-it.sh
-RUN sed -i 's/\r//g' /opt/startup.dev.sh
+RUN sed -i 's/\r//g' /opt/startup.ci.sh
 #
 WORKDIR /usr/src/app
 RUN if [ ! -f .env ]; then cp env-example .env; fi
