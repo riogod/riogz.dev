@@ -1,4 +1,4 @@
-FROM node:18.17.0-alpine
+FROM node:18.14.2-alpine
 
 RUN apk add --no-cache bash
 RUN yarn add -g @nestjs/cli typescript ts-node
