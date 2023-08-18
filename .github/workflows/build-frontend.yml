@@ -97,11 +97,8 @@ jobs:
           key: ${{ secrets.SSH_SERVER_SSHKEY }}
           port: ${{ secrets.SSH_PORT }}
           script: |
-            docker ps
             docker pull ${{ env.DOCKER_HUB_USER }}/${{ env.IMAGE_NAME }}:latest
             docker stop helloworld
             docker compose -f /usr/local/riogz.dev/docker-compose.yml up -d helloworld
-            docker images
-            docker images -f=reference='riogod/riogz.dev-client' -f dangling=true -q
-            docker rm $(docker images -f=reference='riogod/riogz.dev-client' -f dangling=true -q)
+            sleep 2
             docker rmi $(docker images -f=reference='riogod/riogz.dev-client' -f dangling=true -q)
