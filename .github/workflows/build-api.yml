@@ -52,7 +52,7 @@ jobs:
           labels: |
             "api"
             ${{ steps.meta.outputs.labels }}
-          build-args: |
+          secrets: |
             "NODE_ENV=${{ env.NODE_ENV }}"
             "APP_PORT=${{ env.APP_PORT }}"
             "APP_NAME=${{ env.APP_NAME }}"
