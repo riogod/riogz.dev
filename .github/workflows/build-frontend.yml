@@ -101,4 +101,4 @@ jobs:
             docker stop helloworld
             docker compose -f /usr/local/riogz.dev/docker-compose.yml up -d helloworld
             sleep 2
-            docker rmi $(docker images -f=reference='riogod/riogz.dev-client' -f dangling=true -q)
+            docker rmi $(docker images -f=reference='riogod/riogz.dev-client' -f dangling=true -q) -f
