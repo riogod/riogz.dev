@@ -26,9 +26,10 @@ services:
 
     api:
         image: riogod/riogz.dev
+#        image: api-2:tag
         container_name: api
         restart: always
         expose:
             - 5500
         env_file:
-            - ./packages/api/.env
+            - ./packages/api/1.env
