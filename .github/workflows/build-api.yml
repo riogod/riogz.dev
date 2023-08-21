@@ -48,39 +48,11 @@ jobs:
           context: .
           file: packages/api/prod.Dockerfile
           push: true
+          platforms: linux/amd64
           tags: ${{ steps.meta.outputs.tags }}
           labels: |
             "api"
             ${{ steps.meta.outputs.labels }}
-          secrets: |
-            "NODE_ENV=${{ env.NODE_ENV }}"
-            "APP_PORT=${{ env.APP_PORT }}"
-            "APP_NAME=${{ env.APP_NAME }}"
-            "API_PREFIX=${{ env.API_PREFIX }}"
-            "APP_FALLBACK_LANGUAGE=${{ env.APP_FALLBACK_LANGUAGE }}"
-            "APP_HEADER_LANGUAGE=${{ env.APP_HEADER_LANGUAGE }}"
-            "FRONTEND_DOMAIN=${{ env.FRONTEND_DOMAIN }}"
-            "BACKEND_DOMAIN=${{ env.BACKEND_DOMAIN }}"
-            "DATABASE_TYPE=${{ env.DATABASE_TYPE }}"
-            "DATABASE_HOST=${{ env.DATABASE_HOST }}"
-            "DATABASE_PORT=${{ env.DATABASE_PORT }}"
-            "DATABASE_USERNAME=${{ secrets.DATABASE_USERNAME }}"
-            "DATABASE_PASSWORD=${{ secrets.DATABASE_PASSWORD }}"
-            "DATABASE_NAME=${{ env.DATABASE_NAME }}"
-            "DATABASE_SYNCHRONIZE=${{ env.DATABASE_SYNCHRONIZE }}"
-            "DATABASE_MAX_CONNECTIONS=${{ env.DATABASE_MAX_CONNECTIONS }}"
-            "DATABASE_SSL_ENABLED=${{ env.DATABASE_SSL_ENABLED }}"
-            "DATABASE_REJECT_UNAUTHORIZED=${{ env.DATABASE_REJECT_UNAUTHORIZED }}"
-            "DATABASE_CA=${{ env.DATABASE_CA }}"
-            "DATABASE_KEY=${{ env.DATABASE_KEY }}"
-            "DATABASE_CERT=${{ env.DATABASE_CERT }}"
-            "AUTH_JWT_SECRET=${{ secrets.AUTH_JWT_SECRET }}"
-            "AUTH_JWT_TOKEN_EXPIRES_IN=${{ env.AUTH_JWT_TOKEN_EXPIRES_IN }}"
-            "AUTH_REFRESH_SECRET=${{ secrets.AUTH_REFRESH_SECRET }}"
-            "AUTH_REFRESH_TOKEN_EXPIRES_IN=${{ env.AUTH_REFRESH_TOKEN_EXPIRES_IN }}"
-            "GOOGLE_CLIENT_ID=${{ secrets.GOOGLE_CLIENT_ID }}"
-            "GOOGLE_CLIENT_SECRET=${{ secrets.GOOGLE_CLIENT_SECRET }}"
-            "WORKER_HOST=${{ secrets.WORKER_HOST }}"
 
   run:
     name: Update image
