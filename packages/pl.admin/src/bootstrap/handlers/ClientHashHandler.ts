@@ -1,6 +1,5 @@
 import { AbstractInitHandler } from './AbstractInitHandler';
 import { Bootstrap } from '..';
-import Cookies from 'js-cookie';
 
 export class ClientHashHandler extends AbstractInitHandler {
   async handle(bootstrap: Bootstrap): Promise<Bootstrap> {

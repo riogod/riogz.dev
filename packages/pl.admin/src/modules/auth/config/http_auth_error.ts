@@ -7,7 +7,7 @@ type TCallbacks = (error: AxiosError) => void;
 
 export const HttpErrorHandler = (bootstrap: Bootstrap) => {
   const errorMap: Record<string, TCallbacks> = {
-    ERR_NETWORK: (err) => {
+    ERR_NETWORK: (_err) => {
       const settings = bootstrap.di.get(AppSettingsVM);
       settings.serviceAvable = false;
       if (!settings.auth) {
@@ -15,7 +15,7 @@ export const HttpErrorHandler = (bootstrap: Bootstrap) => {
       }
     },
     ERR_BAD_REQUEST: (err) => {
-      if (err.response.status === 401) {
+      if (err.response && err.response.status === 401) {
         bootstrap.router.navigate(AUTH_ROUTES.LOGIN);
       }
     },

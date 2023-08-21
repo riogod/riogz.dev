@@ -1,5 +1,5 @@
-import { FC, useEffect } from 'react';
-import { Link, useRoute, useRouter } from 'react-router5';
+import { FC } from 'react';
+import { Link, useRoute } from 'react-router5';
 import { AUTH_ROUTES } from '../../modules/auth/config/routes';
 import SignIn from '../../modules/auth/ui/Login';
 import { Layout } from './Layout';
