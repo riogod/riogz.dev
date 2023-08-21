@@ -98,6 +98,6 @@ jobs:
           port: ${{ secrets.SSH_PORT }}
           script: |
             docker pull ${{ env.DOCKER_HUB_USER }}/${{ env.IMAGE_NAME }}:latest
-            docker stop helloworld
-            docker compose -f /usr/local/riogz.dev/docker-compose.yml up -d helloworld
+            docker stop admin
+            docker compose -f /usr/local/riogz.dev/docker-compose.yml up -d admin
             docker rmi $(docker images -f=reference='riogod/riogz.dev-admin' -f dangling=true -q) -f
