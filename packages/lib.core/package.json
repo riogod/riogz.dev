@@ -35,7 +35,8 @@
     "lint:fix": "eslint \"*/**/*.{ts,js,json}\" --fix",
     "build": "rollup --config ./rollup.config.mjs",
     "dev": "rollup -c -w",
-    "prepublishOnly": "npm run lint && npm run test && npm run build"
+    "prepublishOnly": "npm run lint && npm run test && npm run build",
+    "postinstall": "yarn build"
   },
   "license": "MIT",
   "dependencies": {
