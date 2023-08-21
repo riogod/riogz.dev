@@ -1,7 +1,7 @@
 version: "3.9"
 services:
     postgres:
-        image: postgres:15.4-alpine
+        image: postgres:14.8-alpine
         ports:
             - ${DATABASE_PORT}:5432
         volumes:
@@ -32,4 +32,4 @@ services:
         expose:
             - 5500
         env_file:
-            - ./packages/api/1.env
+            - ./packages/api/.env
