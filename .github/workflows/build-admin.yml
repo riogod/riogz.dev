@@ -28,6 +28,9 @@ jobs:
 
       - name: Run install
         uses: borales/actions-yarn@v4
+        env:
+          NODE_ENV: 'production'
+          VITE_API_URL: 'https://api.riogz.dev/'
         with:
           cmd: install
 
