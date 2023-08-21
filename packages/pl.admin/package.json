@@ -1,12 +1,12 @@
 {
-  "name": "@riogz/client",
+  "name": "@riogz/admin",
   "private": true,
   "version": "0.0.0",
   "type": "module",
   "scripts": {
     "dev": "vite --host",
     "build": "tsc && vite build",
-    "lint": "eslint @riogz/client --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
+    "lint": "eslint @riogz/admin --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
     "preview": "vite preview"
   },
   "dependencies": {
