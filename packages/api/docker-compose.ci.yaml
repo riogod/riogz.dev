@@ -1,28 +1,31 @@
 services:
-  postgres:
-    image: postgres:15.4-alpine
-    expose:
-      - 5432
-    environment:
-      POSTGRES_USER: ${DATABASE_USERNAME}
-      POSTGRES_PASSWORD: ${DATABASE_PASSWORD}
-      POSTGRES_DB: ${DATABASE_NAME}
-
-  maildev:
-    build:
-      context: .
-      dockerfile: ../../maildev.Dockerfile
-    expose:
-      - 1080
-      - 1025
-
-  # Uncomment to use redis
-  # redis:
-  #   image: redis:7-alpine
-  #   expose:
-  #     - 6379
-
   api:
     build:
       context: .
       dockerfile: e2e.Dockerfile
+    environment:
+      - NODE_ENV=${NODE_ENV}
+      - APP_PORT=${APP_PORT}
+      - APP_NAME=${APP_NAME}
+      - API_PREFIX=${API_PREFIX}
+      - APP_FALLBACK_LANGUAGE=${APP_FALLBACK_LANGUAGE}
+      - APP_HEADER_LANGUAGE=${APP_HEADER_LANGUAGE}
+      - FRONTEND_DOMAIN=${FRONTEND_DOMAIN}
+      - BACKEND_DOMAIN=${BACKEND_DOMAIN}
+      - DATABASE_TYPE=${DATABASE_TYPE}
+      - DATABASE_HOST=${DATABASE_HOST}
+      - DATABASE_PORT=${DATABASE_PORT}
+      - DATABASE_USERNAME=${DATABASE_USERNAME}
+      - DATABASE_PASSWORD=${DATABASE_PASSWORD}
+      - DATABASE_NAME=${DATABASE_NAME}
+      - DATABASE_SYNCHRONIZE=${DATABASE_SYNCHRONIZE}
+      - DATABASE_MAX_CONNECTIONS=${DATABASE_MAX_CONNECTIONS}
+      - DATABASE_SSL_ENABLED=${DATABASE_SSL_ENABLED}
+      - DATABASE_REJECT_UNAUTHORIZED=${DATABASE_REJECT_UNAUTHORIZED}
+      - AUTH_JWT_SECRET=${AUTH_JWT_SECRET}
+      - AUTH_JWT_TOKEN_EXPIRES_IN=${AUTH_JWT_TOKEN_EXPIRES_IN}
+      - AUTH_REFRESH_SECRET=${AUTH_REFRESH_SECRET}
+      - AUTH_REFRESH_TOKEN_EXPIRES_IN=${AUTH_REFRESH_TOKEN_EXPIRES_IN}
+      - GOOGLE_CLIENT_ID=${GOOGLE_CLIENT_ID}
+      - GOOGLE_CLIENT_SECRET=${GOOGLE_CLIENT_SECRET}
+

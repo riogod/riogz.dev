@@ -25,8 +25,10 @@ services:
 #         - 6379:6379
 
     api:
-        build:
-            context: .
-            dockerfile: packages/api/Dockerfile
-        ports:
-            - ${APP_PORT}:${APP_PORT}
+        image: riogod/riogz.dev
+        container_name: api
+        restart: always
+        expose:
+            - 5500
+        env_file:
+            - ./packages/api/.env

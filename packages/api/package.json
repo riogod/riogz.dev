@@ -4,7 +4,7 @@
   "description": "",
   "author": "",
   "private": true,
-  "license": "UNLICENSED",
+  "license": "MIT",
   "scripts": {
     "typeorm": "env-cmd -f .env ts-node -r tsconfig-paths/register ./node_modules/typeorm/cli.js",
     "typeorm:prod": "ts-node -r tsconfig-paths/register ./node_modules/typeorm/cli.js",
