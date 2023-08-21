@@ -10,8 +10,8 @@
     "packages/*"
   ],
   "scripts": {
-
-    "build:client": "yarn workspace @riogz/client build"
+    "build:client": "yarn workspace @riogz/client build",
+    "build:admin": "yarn workspace @riogz/admin build"
   },
   "engines": {
     "node": ">=18.12.0",

@@ -34,13 +34,13 @@ jobs:
       - name: Build production bundle
         uses: borales/actions-yarn@v4
         with:
-          cmd: build:client
+          cmd: build:admin
 
       - name: Create Artifact
         uses: actions/upload-artifact@v3
         with:
-          name: pl-client
-          path: packages/pl.client/dist
+          name: pl-admin
+          path: packages/pl.admin/dist
 
   docker:
     name: Make docker
@@ -52,7 +52,7 @@ jobs:
       - name: Download artifact
         uses: actions/download-artifact@v3
         with:
-          name: pl-client
+          name: pl-admin
           path: dist
 
       - name: Docker meta
