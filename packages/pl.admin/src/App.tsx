@@ -13,7 +13,7 @@ function App() {
         </a>
       </div>
       <div className="read-the-docs">
-          Adminer<br/>
+          Adminer v1.0<br/>
       </div>
     </>
   )
