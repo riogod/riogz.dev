@@ -43,7 +43,7 @@ jobs:
         uses: garygrossgarten/github-action-scp@release
         with:
           local: packages/pl.admin/dist
-          remote: /usr/local/riogz.dev/nginx/www/admin
+          remote: /var/lib/docker/volumes/riogzdev_www_admin/_data
           host: ${{ secrets.SSH_HOST }}
           username: ${{ secrets.SSH_SERVER_USER }}
           privateKey: ${{ secrets.SSH_SERVER_SSHKEY }}
