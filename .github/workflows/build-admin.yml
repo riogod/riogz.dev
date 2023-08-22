@@ -101,6 +101,7 @@ jobs:
           port: ${{ secrets.SSH_PORT }}
           script: |
             docker pull ${{ env.DOCKER_HUB_USER }}/${{ env.IMAGE_NAME }}:latest
-            docker stop admin
-            docker compose -f /usr/local/riogz.dev/docker-compose.yml up -d admin
+            docker stop admin nginx
+            docker volume rm riogzdev_www_admin_data
+            docker compose -f /usr/local/riogz.dev/docker-compose.yml up -d admin nginx
             docker rmi $(docker images -f=reference='riogod/riogz.dev-admin' -f dangling=true -q) -f
