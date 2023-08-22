@@ -1,4 +1,4 @@
 export const AUTH_ENDPOINTS = {
-  REFRESH: '/refresh',
-  LOGIN: '/auth/login',
+  REFRESH: '/auth/refresh',
+  LOGIN: '/auth/admin/email/login',
 };

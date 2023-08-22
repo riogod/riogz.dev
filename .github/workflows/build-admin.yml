@@ -35,7 +35,7 @@ jobs:
         uses: borales/actions-yarn@v4
         env:
           NODE_ENV: 'dev'
-          VITE_API_URL: 'https://api.riogz.dev/'
+          VITE_API_URL: 'https://api.riogz.dev/api/v1'
         with:
           cmd: build:admin
 
