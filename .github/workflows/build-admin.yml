@@ -43,7 +43,7 @@ jobs:
         uses: garygrossgarten/github-action-scp@release
         with:
           local: packages/pl.admin/dist
-          remote: /usr/local/riogz.dev/nginx/wwww/admin
+          remote: /usr/local/riogz.dev/nginx/www/admin
           host: ${{ secrets.SSH_HOST }}
           username: ${{ secrets.SSH_SERVER_USER }}
           privateKey: ${{ secrets.SSH_SERVER_SSHKEY }}
