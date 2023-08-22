@@ -10,7 +10,7 @@ class AuthRepository {
 
   async getAppAuthStatus(): Promise<boolean> {
     const result = await this.api.request<null, ResponseSuccess>({
-      method: HttpMethod.GET,
+      method: HttpMethod.POST,
       route: AUTH_ENDPOINTS.REFRESH,
     });
 
