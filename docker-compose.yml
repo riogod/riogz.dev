@@ -33,3 +33,10 @@ services:
             - 5500
         env_file:
             - ./packages/api/.env
+
+    admin:
+        container_name: admin
+        restart: always
+        image: riogod/riogz.dev-admin:latest
+        volumes:
+            - ./.data/www:/www
