@@ -39,69 +39,100 @@ jobs:
         with:
           cmd: build:admin
 
-      - name: Create Artifact
-        uses: actions/upload-artifact@v3
+      - name: Deploy to Staging server
+        uses: easingthemes/ssh-deploy@main
         with:
-          name: pl-admin
-          path: packages/pl.admin/dist
+          SSH_PRIVATE_KEY: ${{ secrets.SSH_SERVER_SSHKEY }}
+          ARGS: "-rlgoDzvc -i --delete"
+          SOURCE: "dist/"
+          REMOTE_HOST: ${{ secrets.SSH_HOST }}
+          REMOTE_USER: ${{ secrets.SSH_SERVER_USER }}
+          TARGET: /usr/local/riogz.dev/nginx/www/admin
+          EXCLUDE: "/dist/, /node_modules/"
+          SCRIPT_BEFORE: |
+            whoami
+            ls -al
+          SCRIPT_AFTER: |
+            whoami
+            ls -al
+            echo $RSYNC_STDOUT
 
-  docker:
-    name: Make docker
-    runs-on: ubuntu-latest
-    needs: build
-    steps:
-      - uses: actions/checkout@v3
-
-      - name: Download artifact
-        uses: actions/download-artifact@v3
-        with:
-          name: pl-admin
-          path: dist
-
-      - name: Docker meta
-        id: meta
-        uses: docker/metadata-action@v4
-        with:
-          images: ${{ env.DOCKER_HUB_USER }}/${{ env.IMAGE_NAME }}
-          tags: latest
-
-      - name: Set up QEMU
-        uses: docker/setup-qemu-action@v2
-
-      - name: Setup Docker buildx
-        uses: docker/setup-buildx-action@v2
-
-      - name: Login to Docker Hub
-        if: github.event_name != 'pull_request'
-        uses: docker/login-action@v2
-        with:
-          username: ${{ env.DOCKER_HUB_USER }}
-          password: ${{ secrets.DOCKER_HUB_TOKEN }}
-
-      - name: Build and push
-        uses: docker/build-push-action@v3
-        with:
-          context: .
-          file: packages/pl.client/Dockerfile
-          push: true
-          tags: ${{ steps.meta.outputs.tags }}
-          labels: ${{ steps.meta.outputs.labels }}
-
-  run:
-    name: Update image
-    runs-on: ubuntu-latest
-    needs: docker
-    steps:
-      - name: multiple command
-        uses: appleboy/ssh-action@v1.0.0
-        with:
-          host: ${{ secrets.SSH_HOST }}
-          username: ${{ secrets.SSH_SERVER_USER }}
-          key: ${{ secrets.SSH_SERVER_SSHKEY }}
-          port: ${{ secrets.SSH_PORT }}
-          script: |
-            docker pull ${{ env.DOCKER_HUB_USER }}/${{ env.IMAGE_NAME }}:latest
-            docker stop admin nginx
-            docker volume rm riogzdev_www_admin_data
-            docker compose -f /usr/local/riogz.dev/docker-compose.yml up -d admin nginx
-            docker rmi $(docker images -f=reference='riogod/riogz.dev-admin' -f dangling=true -q) -f
+#      - name: deploy
+#        uses: appleboy/ssh-action@v1.0.0
+#        with:
+#          host: ${{ secrets.SSH_HOST }}
+#          username: ${{ secrets.SSH_SERVER_USER }}
+#          key: ${{ secrets.SSH_SERVER_SSHKEY }}
+#          port: ${{ secrets.SSH_PORT }}
+#          script: |
+#            docker pull ${{ env.DOCKER_HUB_USER }}/${{ env.IMAGE_NAME }}:latest
+#            docker stop admin nginx
+#            docker volume rm riogzdev_www_admin_data
+#            docker compose -f /usr/local/riogz.dev/docker-compose.yml up -d admin nginx
+#            docker rmi $(docker images -f=reference='riogod/riogz.dev-admin' -f dangling=true -q) -f
+#      - name: Create Artifact
+#        uses: actions/upload-artifact@v3
+#        with:
+#          name: pl-admin
+#          path: packages/pl.admin/dist
+#
+#  docker:
+#    name: Make docker
+#    runs-on: ubuntu-latest
+#    needs: build
+#    steps:
+#      - uses: actions/checkout@v3
+#
+#      - name: Download artifact
+#        uses: actions/download-artifact@v3
+#        with:
+#          name: pl-admin
+#          path: dist
+#
+#      - name: Docker meta
+#        id: meta
+#        uses: docker/metadata-action@v4
+#        with:
+#          images: ${{ env.DOCKER_HUB_USER }}/${{ env.IMAGE_NAME }}
+#          tags: latest
+#
+#      - name: Set up QEMU
+#        uses: docker/setup-qemu-action@v2
+#
+#      - name: Setup Docker buildx
+#        uses: docker/setup-buildx-action@v2
+#
+#      - name: Login to Docker Hub
+#        if: github.event_name != 'pull_request'
+#        uses: docker/login-action@v2
+#        with:
+#          username: ${{ env.DOCKER_HUB_USER }}
+#          password: ${{ secrets.DOCKER_HUB_TOKEN }}
+#
+#      - name: Build and push
+#        uses: docker/build-push-action@v3
+#        with:
+#          context: .
+#          file: packages/pl.client/Dockerfile
+#          push: true
+#          tags: ${{ steps.meta.outputs.tags }}
+#          labels: ${{ steps.meta.outputs.labels }}
+#
+#  run:
+#    name: Update image
+#    runs-on: ubuntu-latest
+#    needs: docker
+#    steps:
+#      - name: multiple command
+#        uses: appleboy/ssh-action@v1.0.0
+#        with:
+#          host: ${{ secrets.SSH_HOST }}
+#          username: ${{ secrets.SSH_SERVER_USER }}
+#          key: ${{ secrets.SSH_SERVER_SSHKEY }}
+#          port: ${{ secrets.SSH_PORT }}
+#          script: |
+#            docker pull ${{ env.DOCKER_HUB_USER }}/${{ env.IMAGE_NAME }}:latest
+#            docker stop admin nginx
+#            docker volume rm riogzdev_www_admin_data
+#            docker compose -f /usr/local/riogz.dev/docker-compose.yml up -d admin nginx
+#            docker rmi $(docker images -f=reference='riogod/riogz.dev-admin' -f dangling=true -q) -f
