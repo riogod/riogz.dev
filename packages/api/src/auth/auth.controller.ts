@@ -62,12 +62,14 @@ export class AuthController {
     response.cookie('accessToken', data.token, {
       maxAge: data.tokenExpires,
       httpOnly: false,
-      secure: false,
+      secure: true,
+      domain: '.riogz.dev'
     });
     response.cookie('refreshToken', data.refreshToken, {
-      maxAge: data.refreshTokenExpires * 1000,
+      maxAge: data.refreshTokenExpires,
       httpOnly: true,
-      secure: false,
+      secure: true,
+      domain: '.riogz.dev'
     });
     return data;
   }
@@ -131,12 +133,14 @@ export class AuthController {
     response.cookie('accessToken', data.token, {
       maxAge: data.tokenExpires,
       httpOnly: false,
-      secure: false,
+      secure: true,
+      domain: '.riogz.dev',
     });
     response.cookie('refreshToken', data.refreshToken, {
       maxAge: data.refreshTokenExpires * 1000,
       httpOnly: true,
-      secure: false,
+      secure: true,
+      domain: '.riogz.dev',
     });
 
     return data;
