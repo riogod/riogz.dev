@@ -9,7 +9,7 @@ import {
   UseGuards,
   Patch,
   Delete,
-  SerializeOptions,
+  SerializeOptions, Res,
 } from '@nestjs/common';
 import { AuthService } from './auth.service';
 import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
@@ -23,6 +23,7 @@ import { AuthRegisterLoginDto } from './dto/auth-register-login.dto';
 import { LoginResponseType } from './types/login-response.type';
 import { User } from '../users/entities/user.entity';
 import { NullableType } from '../utils/types/nullable.type';
+import { Response } from 'express';
 
 @ApiTags('Auth')
 @Controller({
@@ -50,12 +51,25 @@ export class AuthController {
   })
   @Post('admin/email/login')
   @HttpCode(HttpStatus.OK)
-  public adminLogin(
+  public async adminLogin(
     @Body() loginDTO: AuthEmailLoginDto,
     @Request() request,
+    @Res({ passthrough: true }) response: Response
   ): Promise<LoginResponseType> {
     const deviceId = request.header('Device-Id');
-    return this.service.validateLogin(loginDTO, true, deviceId);
+    const data = await this.service.validateLogin(loginDTO, true, deviceId);
+
+    response.cookie('accessToken', data.token, {
+      maxAge: data.tokenExpires,
+      httpOnly: false,
+      secure: false,
+    });
+    response.cookie('refreshToken', data.refreshToken, {
+      maxAge: data.refreshTokenExpires * 1000,
+      httpOnly: true,
+      secure: false,
+    });
+    return data;
   }
 
   @Post('email/register')
@@ -94,7 +108,7 @@ export class AuthController {
     groups: ['me'],
   })
   @Get('me')
-  @UseGuards(AuthGuard('jwt'))
+  @UseGuards(AuthGuard(['jwt-cookie', 'jwt']))
   @HttpCode(HttpStatus.OK)
   public me(@Request() request): Promise<NullableType<User>> {
     return this.service.me(request.user);
@@ -105,18 +119,32 @@ export class AuthController {
     groups: ['me'],
   })
   @Post('refresh')
-  @UseGuards(AuthGuard('jwt-refresh'))
+  @UseGuards(AuthGuard(['jwt-refresh-cookie', 'jwt-refresh']))
   @HttpCode(HttpStatus.OK)
-  public refresh(@Request() request): Promise<Omit<LoginResponseType, 'user'>> {
+  public async refresh(@Request() request, @Res({ passthrough: true }) response: Response): Promise<Omit<LoginResponseType, 'user'>> {
     const deviceId = request.header('Device-Id');
-    return this.service.refreshToken({
+
+    const data = await this.service.refreshToken({
       sessionId: request.user.sessionId,
     }, deviceId);
+
+    response.cookie('accessToken', data.token, {
+      maxAge: data.tokenExpires,
+      httpOnly: false,
+      secure: false,
+    });
+    response.cookie('refreshToken', data.refreshToken, {
+      maxAge: data.refreshTokenExpires * 1000,
+      httpOnly: true,
+      secure: false,
+    });
+
+    return data;
   }
 
   @ApiBearerAuth()
   @Post('logout')
-  @UseGuards(AuthGuard('jwt'))
+  @UseGuards(AuthGuard(['jwt-cookie', 'jwt']))
   @HttpCode(HttpStatus.NO_CONTENT)
   public async logout(@Request() request): Promise<void> {
     await this.service.logout({
@@ -129,7 +157,7 @@ export class AuthController {
     groups: ['me'],
   })
   @Patch('me')
-  @UseGuards(AuthGuard('jwt'))
+  @UseGuards(AuthGuard(['jwt-cookie', 'jwt']))
   @HttpCode(HttpStatus.OK)
   public update(
     @Request() request,
@@ -140,9 +168,11 @@ export class AuthController {
 
   @ApiBearerAuth()
   @Delete('me')
-  @UseGuards(AuthGuard('jwt'))
+  @UseGuards(AuthGuard(['jwt-cookie', 'jwt']))
   @HttpCode(HttpStatus.NO_CONTENT)
   public async delete(@Request() request): Promise<void> {
     return this.service.softDelete(request.user);
   }
+
+
 }

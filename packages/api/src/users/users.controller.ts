@@ -29,7 +29,7 @@ import { NullableType } from '../utils/types/nullable.type';
 
 @ApiBearerAuth()
 @Roles(RoleEnum.admin)
-@UseGuards(AuthGuard('jwt'), RolesGuard)
+@UseGuards(AuthGuard(['jwt-cookie', 'jwt']), RolesGuard)
 @ApiTags('Users')
 @Controller({
   path: 'users',

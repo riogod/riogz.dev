@@ -9,16 +9,17 @@ class AuthRepository {
   constructor(@inject(APIClient) private api: APIClient) {}
 
   async getAppAuthStatus(): Promise<boolean> {
-    const result = await this.api.request<null, ResponseSuccess>({
+
+     await this.api.request<null, ResponseSuccess>({
       method: HttpMethod.POST,
       route: AUTH_ENDPOINTS.REFRESH,
     });
 
-    return result.success;
+      return true;
   }
 
   async authenticate(param: RequestAuthDTO): Promise<ResponseLoginServiceDTO> {
-    const result = await this.api.request<
+    return await this.api.request<
       RequestAuthDTO,
       ResponseLoginServiceDTO
     >({
@@ -26,7 +27,6 @@ class AuthRepository {
       route: AUTH_ENDPOINTS.LOGIN,
       requestObj: param,
     });
-    return result;
   }
 }
 

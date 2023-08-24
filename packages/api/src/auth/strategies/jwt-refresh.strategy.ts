@@ -21,6 +21,7 @@ export class JwtRefreshStrategy extends PassportStrategy(
   public validate(
     payload: JwtRefreshPayloadType,
   ): OrNeverType<JwtRefreshPayloadType> {
+    console.log('<<<<<<<')
     if (!payload.sessionId) {
       throw new UnauthorizedException();
     }

@@ -102,7 +102,7 @@ export class AuthService {
       deviceId
     });
 
-    const { token, refreshToken, tokenExpires } = await this.getTokensData({
+    const { token, refreshToken, tokenExpires, refreshTokenExpires } = await this.getTokensData({
       id: user.id,
       role: user.role,
       sessionId: session.id,
@@ -113,6 +113,7 @@ export class AuthService {
       refreshToken,
       token,
       tokenExpires,
+      refreshTokenExpires,
       user,
     };
   }
@@ -184,6 +185,7 @@ export class AuthService {
       token: jwtToken,
       refreshToken,
       tokenExpires,
+      refreshTokenExpires,
     } = await this.getTokensData({
       id: user.id,
       role: user.role,
@@ -195,6 +197,7 @@ export class AuthService {
       refreshToken,
       token: jwtToken,
       tokenExpires,
+      refreshTokenExpires,
       user,
     };
   }
@@ -397,7 +400,7 @@ export class AuthService {
       throw new UnauthorizedException();
     }
 
-    const { token, refreshToken, tokenExpires } = await this.getTokensData({
+    const { token, refreshToken, tokenExpires, refreshTokenExpires } = await this.getTokensData({
       id: session.user.id,
       role: session.user.role,
       sessionId: session.id,
@@ -408,6 +411,7 @@ export class AuthService {
       token,
       refreshToken,
       tokenExpires,
+      refreshTokenExpires
     };
   }
 
@@ -431,7 +435,12 @@ export class AuthService {
       infer: true,
     });
 
+    const refreshTokenExpiresIn = this.configService.getOrThrow('auth.refreshExpires', {
+      infer: true,
+    });
+
     const tokenExpires = Date.now() + ms(tokenExpiresIn);
+    const refreshTokenExpires = Date.now() + ms(refreshTokenExpiresIn);
 
     const [token, refreshToken] = await Promise.all([
       await this.jwtService.signAsync(
@@ -466,6 +475,7 @@ export class AuthService {
       token,
       refreshToken,
       tokenExpires,
+      refreshTokenExpires
     };
   }
 }

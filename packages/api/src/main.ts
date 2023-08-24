@@ -10,6 +10,7 @@ import { useContainer } from 'class-validator';
 import { AppModule } from './app.module';
 import validationOptions from './utils/validation-options';
 import { AllConfigType } from './config/config.type';
+import cookieParser from 'cookie-parser';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
@@ -17,12 +18,14 @@ async function bootstrap() {
   const configService = app.get(ConfigService<AllConfigType>);
   app.enableCors({
     origin: [
-        'https://admin.riogz.ru'
+        'https://admin.riogz.ru',
+        'http://192.168.2.110:5173'
     ],
     methods: 'GET,HEAD,PUT,PATCH,POST,DELETE,OPTIONS',
     credentials: true
   })
   app.enableShutdownHooks();
+  app.use(cookieParser());
   app.setGlobalPrefix(
     configService.getOrThrow('app.apiPrefix', { infer: true }),
     {
