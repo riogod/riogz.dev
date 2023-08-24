@@ -1,4 +1,4 @@
-import { Body, Controller, HttpCode, HttpStatus, Post } from '@nestjs/common';
+import {Body, Controller, HttpCode, HttpStatus, Post, Request} from '@nestjs/common';
 import { ApiTags } from '@nestjs/swagger';
 import { AuthService } from 'src/auth/auth.service';
 import { AuthGoogleService } from './auth-google.service';
@@ -20,9 +20,10 @@ export class AuthGoogleController {
   @HttpCode(HttpStatus.OK)
   async login(
     @Body() loginDto: AuthGoogleLoginDto,
+    @Request() request,
   ): Promise<LoginResponseType> {
     const socialData = await this.authGoogleService.getProfileByToken(loginDto);
-
-    return this.authService.validateSocialLogin('google', socialData);
+    const deviceId = request.header('Device-Id');
+    return this.authService.validateSocialLogin('google', socialData, deviceId);
   }
 }

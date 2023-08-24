@@ -44,6 +44,7 @@ export class AuthService {
   async validateLogin(
     loginDto: AuthEmailLoginDto,
     onlyAdmin: boolean,
+    deviceId: Session['deviceId']
   ): Promise<LoginResponseType> {
     const user = await this.usersService.findOne({
       email: loginDto.email,
@@ -98,12 +99,14 @@ export class AuthService {
 
     const session = await this.sessionService.create({
       user,
+      deviceId
     });
 
     const { token, refreshToken, tokenExpires } = await this.getTokensData({
       id: user.id,
       role: user.role,
       sessionId: session.id,
+      deviceId: deviceId
     });
 
     return {
@@ -117,6 +120,7 @@ export class AuthService {
   async validateSocialLogin(
     authProvider: string,
     socialData: SocialInterface,
+    deviceId: Session['deviceId']
   ): Promise<LoginResponseType> {
     let user: NullableType<User>;
     const socialEmail = socialData.email?.toLowerCase();
@@ -184,6 +188,7 @@ export class AuthService {
       id: user.id,
       role: user.role,
       sessionId: session.id,
+      deviceId
     });
 
     return {
@@ -380,6 +385,7 @@ export class AuthService {
 
   async refreshToken(
     data: Pick<JwtRefreshPayloadType, 'sessionId'>,
+    deviceId: Session['deviceId']
   ): Promise<Omit<LoginResponseType, 'user'>> {
     const session = await this.sessionService.findOne({
       where: {
@@ -395,6 +401,7 @@ export class AuthService {
       id: session.user.id,
       role: session.user.role,
       sessionId: session.id,
+      deviceId
     });
 
     return {
@@ -418,6 +425,7 @@ export class AuthService {
     id: User['id'];
     role: User['role'];
     sessionId: Session['id'];
+    deviceId: Session['deviceId'];
   }) {
     const tokenExpiresIn = this.configService.getOrThrow('auth.expires', {
       infer: true,
@@ -431,6 +439,7 @@ export class AuthService {
           id: data.id,
           role: data.role,
           sessionId: data.sessionId,
+          deviceId: data.deviceId
         },
         {
           secret: this.configService.getOrThrow('auth.secret', { infer: true }),
@@ -440,6 +449,7 @@ export class AuthService {
       await this.jwtService.signAsync(
         {
           sessionId: data.sessionId,
+          deviceId: data.deviceId
         },
         {
           secret: this.configService.getOrThrow('auth.refreshSecret', {

@@ -39,8 +39,10 @@ export class AuthController {
   @HttpCode(HttpStatus.OK)
   public login(
     @Body() loginDto: AuthEmailLoginDto,
+    @Request() request,
   ): Promise<LoginResponseType> {
-    return this.service.validateLogin(loginDto, false);
+    const deviceId = request.header('Device-Id');
+    return this.service.validateLogin(loginDto, false, deviceId);
   }
 
   @SerializeOptions({
@@ -50,8 +52,10 @@ export class AuthController {
   @HttpCode(HttpStatus.OK)
   public adminLogin(
     @Body() loginDTO: AuthEmailLoginDto,
+    @Request() request,
   ): Promise<LoginResponseType> {
-    return this.service.validateLogin(loginDTO, true);
+    const deviceId = request.header('Device-Id');
+    return this.service.validateLogin(loginDTO, true, deviceId);
   }
 
   @Post('email/register')
@@ -104,9 +108,10 @@ export class AuthController {
   @UseGuards(AuthGuard('jwt-refresh'))
   @HttpCode(HttpStatus.OK)
   public refresh(@Request() request): Promise<Omit<LoginResponseType, 'user'>> {
+    const deviceId = request.header('Device-Id');
     return this.service.refreshToken({
       sessionId: request.user.sessionId,
-    });
+    }, deviceId);
   }
 
   @ApiBearerAuth()

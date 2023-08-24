@@ -4,7 +4,7 @@ import {
   Index,
   ManyToOne,
   PrimaryGeneratedColumn,
-  DeleteDateColumn,
+  DeleteDateColumn, Column,
 } from 'typeorm';
 import { User } from '../../users/entities/user.entity';
 import { EntityHelper } from 'src/utils/entity-helper';
@@ -19,6 +19,9 @@ export class Session extends EntityHelper {
   })
   @Index()
   user: User;
+
+  @Column()
+  deviceId: string;
 
   @CreateDateColumn()
   createdAt: Date;
