@@ -19,7 +19,7 @@ async function bootstrap() {
   app.enableCors({
     origin: [
         'https://admin.riogz.ru',
-        'http://192.168.2.110:5173'
+        // 'http://192.168.2.110:5173'
     ],
     methods: 'GET,HEAD,PUT,PATCH,POST,DELETE,OPTIONS',
     credentials: true
