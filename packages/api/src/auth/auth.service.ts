@@ -33,6 +33,9 @@ import { JwtPayloadType } from './strategies/types/jwt-payload.type';
 
 @Injectable()
 export class AuthService {
+
+  tokenExpiresIn = Number(ms(this.configService.getOrThrow('auth.expires', { infer: true })));
+  refreshTokenExpiresIn = Number(ms(this.configService.getOrThrow('auth.refreshExpires', { infer: true })));
   constructor(
     private jwtService: JwtService,
     private usersService: UsersService,

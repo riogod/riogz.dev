@@ -25,6 +25,8 @@ import { User } from '../users/entities/user.entity';
 import { NullableType } from '../utils/types/nullable.type';
 import { Response } from 'express';
 
+const cookieOptions = process.env.NODE_ENV !== 'production' ?  {  secure: false } : { secure: true, domain: '.riogz.dev' };
+
 @ApiTags('Auth')
 @Controller({
   path: 'auth',
@@ -60,16 +62,14 @@ export class AuthController {
     const data = await this.service.validateLogin(loginDTO, true, deviceId);
 
     response.cookie('accessToken', data.token, {
-      maxAge: data.tokenExpires,
+      maxAge: this.service.tokenExpiresIn,
       httpOnly: false,
-      secure: true,
-      domain: '.riogz.dev'
+      ...cookieOptions
     });
     response.cookie('refreshToken', data.refreshToken, {
-      maxAge: data.refreshTokenExpires,
+      maxAge: this.service.refreshTokenExpiresIn,
       httpOnly: true,
-      secure: true,
-      domain: '.riogz.dev'
+      ...cookieOptions
     });
     return data;
   }
@@ -131,16 +131,14 @@ export class AuthController {
     }, deviceId);
 
     response.cookie('accessToken', data.token, {
-      maxAge: data.tokenExpires,
+      maxAge: this.service.tokenExpiresIn,
       httpOnly: false,
-      secure: true,
-      domain: '.riogz.dev',
+      ...cookieOptions
     });
     response.cookie('refreshToken', data.refreshToken, {
-      maxAge: data.refreshTokenExpires * 1000,
+      maxAge: this.service.refreshTokenExpiresIn,
       httpOnly: true,
-      secure: true,
-      domain: '.riogz.dev',
+      ...cookieOptions
     });
 
     return data;
