@@ -16,14 +16,6 @@ async function bootstrap() {
   const app = await NestFactory.create(AppModule);
   useContainer(app.select(AppModule), { fallbackOnErrors: true });
   const configService = app.get(ConfigService<AllConfigType>);
-  app.enableCors({
-    origin: [
-        'https://admin.riogz.ru',
-        // 'http://192.168.2.110:5173'
-    ],
-    methods: 'GET,HEAD,PUT,PATCH,POST,DELETE,OPTIONS',
-    credentials: true
-  })
   app.enableShutdownHooks();
   app.use(cookieParser());
   app.setGlobalPrefix(
@@ -47,7 +39,14 @@ async function bootstrap() {
 
   const document = SwaggerModule.createDocument(app, options);
   SwaggerModule.setup('docs', app, document);
-
+  app.enableCors({
+    origin: [
+      'https://admin.riogz.ru',
+      'http://192.168.2.110:5173'
+    ],
+    methods: 'GET,HEAD,PUT,PATCH,POST,DELETE,OPTIONS',
+    credentials: true
+  })
   await app.listen(configService.getOrThrow('app.port', { infer: true }));
 }
 void bootstrap();
