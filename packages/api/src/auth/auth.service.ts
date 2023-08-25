@@ -52,13 +52,9 @@ export class AuthService {
     const user = await this.usersService.findOne({
       email: loginDto.email,
     });
-
     if (
       !user ||
-      (user?.role &&
-        !(onlyAdmin ? [RoleEnum.admin] : [RoleEnum.user]).includes(
-          user.role.id,
-        ))
+      (user.role  && !(onlyAdmin ? [RoleEnum.admin] : [RoleEnum.user]).some(item => user.role.some(role => role.id === item)))
     ) {
       throw new HttpException(
         {
@@ -159,7 +155,7 @@ export class AuthService {
         lastName: socialData.lastName ?? null,
         socialId: socialData.id,
         provider: authProvider,
-        role,
+        role: [role],
         status,
       });
 
@@ -214,9 +210,9 @@ export class AuthService {
     await this.usersService.create({
       ...dto,
       email: dto.email,
-      role: {
+      role: [{
         id: RoleEnum.user,
-      } as Role,
+      } as Role],
       status: {
         id: StatusEnum.inactive,
       } as Status,

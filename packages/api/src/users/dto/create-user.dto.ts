@@ -42,7 +42,7 @@ export class CreateUserDto {
   @Validate(IsExist, ['Role', 'id'], {
     message: 'roleNotExists',
   })
-  role?: Role | null;
+  role: Role[];
 
   @ApiProperty({ type: Status })
   @Validate(IsExist, ['Status', 'id'], {

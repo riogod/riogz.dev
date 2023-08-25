@@ -9,7 +9,7 @@ import {
   PrimaryGeneratedColumn,
   UpdateDateColumn,
   BeforeInsert,
-  BeforeUpdate,
+  BeforeUpdate, JoinTable, ManyToMany,
 } from 'typeorm';
 import { Role } from '../../roles/entities/role.entity';
 import { Status } from '../../statuses/entities/status.entity';
@@ -67,10 +67,12 @@ export class User extends EntityHelper {
   @Column({ type: String, nullable: true })
   lastName: string | null;
 
-  @ManyToOne(() => Role, {
+  @ManyToMany(() => Role, (role) => role.id, {
     eager: true,
+    cascade: true,
   })
-  role?: Role | null;
+  @JoinTable()
+  role: Role[];
 
   @ManyToOne(() => Status, {
     eager: true,

@@ -28,10 +28,10 @@ export class UserSeedService {
           lastName: 'Admin',
           email: 'admin@example.com',
           password: 'secret',
-          role: {
+          role: [{
             id: RoleEnum.admin,
             name: 'Admin',
-          },
+          }],
           status: {
             id: StatusEnum.active,
             name: 'Active',
@@ -55,10 +55,10 @@ export class UserSeedService {
           lastName: 'Doe',
           email: 'john.doe@example.com',
           password: 'secret',
-          role: {
+          role: [{
             id: RoleEnum.user,
             name: 'Admin',
-          },
+          }],
           status: {
             id: StatusEnum.active,
             name: 'Active',
