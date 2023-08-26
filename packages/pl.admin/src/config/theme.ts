@@ -11,6 +11,7 @@ export const theme = createTheme({
     },
   },
   components: {
+
     MuiOutlinedInput: {
       styleOverrides: {
         input: {
@@ -21,11 +22,12 @@ export const theme = createTheme({
       },
     },
     MuiInputBase: {
-      defaultProps: {
-        inputProps: {
-          style: {},
-
-          // paddingBottom: 0,
+      styleOverrides: {
+        input: {
+          "&:-webkit-autofill": {
+            transitionDelay: "9999s",
+            transitionProperty: "background-color, color",
+          },
         },
       },
     },

@@ -12,8 +12,8 @@
   "dependencies": {
     "@emotion/react": "^11.11.1",
     "@emotion/styled": "^11.11.0",
-    "@mui/icons-material": "^5.14.0",
-    "@mui/material": "^5.14.0",
+    "@mui/icons-material": "^5.14.6",
+    "@mui/material": "^5.14.6",
     "@riogz/lib.core": "0.0.1",
     "@vitejs/plugin-basic-ssl": "^1.0.1",
     "add": "^2.0.6",
@@ -25,22 +25,22 @@
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-router5": "^8.0.1",
-    "reflect-metadata": "^0.1.13",
+    "reflect-metadata": "0.1.13",
     "router5": "^8.0.1",
     "router5-plugin-browser": "^8.0.1"
   },
   "devDependencies": {
     "@types/js-cookie": "^3.0.3",
-    "@types/node": "^20.4.2",
-    "@types/react": "^18.2.14",
-    "@types/react-dom": "^18.2.6",
-    "@typescript-eslint/eslint-plugin": "6.1.0",
-    "@typescript-eslint/parser": "6.1.0",
+    "@types/node": "20.5.6",
+    "@types/react": "18.2.21",
+    "@types/react-dom": "^18.2.7",
+    "@typescript-eslint/eslint-plugin": "6.3.0",
+    "@typescript-eslint/parser": "6.3.0",
     "@vitejs/plugin-react": "^4.0.1",
-    "eslint": "^8.44.0",
+    "eslint": "8.46.0",
     "eslint-plugin-react-hooks": "^4.6.0",
-    "eslint-plugin-react-refresh": "^0.4.1",
+    "eslint-plugin-react-refresh": "^0.4.3",
     "typescript": "5.1.6",
-    "vite": "4.4.4"
+    "vite": "4.4.9"
   }
 }

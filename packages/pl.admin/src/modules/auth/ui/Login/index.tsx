@@ -45,7 +45,7 @@ export default function SignIn() {
             <LockOutlinedIcon />
           </Avatar>
           <Typography component="h1" variant="h5">
-            -Sing-Up-
+            Sing-Up
           </Typography>
           <Box
             component="form"

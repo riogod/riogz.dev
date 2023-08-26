@@ -20,20 +20,18 @@ initBootstrap(new Bootstrap(app_modules), appConfig)
   .then(async (bootstrap) => {
     bootstrap.router.start(() => {
       ReactDOM.createRoot(document.getElementById('root')!).render(
-        // <React.StrictMode>
-        <RouterProvider router={bootstrap.router}>
-          <ThemeProvider theme={theme}>
-            <APIClientProvider api={bootstrap.getAPIClient}>
-              <DIProvider container={bootstrap.di}>
-                <Box sx={{ display: 'flex' }}>
-                  <CssBaseline />
-                  <PagesSelector />
-                </Box>
-              </DIProvider>
-            </APIClientProvider>
-          </ThemeProvider>
-        </RouterProvider>,
-        //  </React.StrictMode>,
+            <RouterProvider router={bootstrap.router}>
+              <ThemeProvider theme={theme}>
+                <APIClientProvider api={bootstrap.getAPIClient}>
+                  <DIProvider container={bootstrap.di}>
+                    <Box sx={{ display: 'flex' }}>
+                      <CssBaseline />
+                      <PagesSelector />
+                    </Box>
+                  </DIProvider>
+                </APIClientProvider>
+              </ThemeProvider>
+            </RouterProvider>
       );
     });
   })
