@@ -1,22 +1,25 @@
-import { createTheme } from '@mui/material';
+import { ThemeOptions } from "@mui/material";
 
-export const theme = createTheme({
+export const theme: ThemeOptions = {
   palette: {
-    mode: 'dark',
     primary: {
-      main: '#673ab7',
+      main: "#673ab7",
     },
     secondary: {
-      main: '#f50057',
+      main: "#f50057",
     },
   },
   components: {
-
+    MuiUseMediaQuery: {
+      defaultProps: {
+        noSsr: true,
+      },
+    },
     MuiOutlinedInput: {
       styleOverrides: {
         input: {
-          '&:-webkit-autofill': {
-            backgroundClip: 'text',
+          "&:-webkit-autofill": {
+            backgroundClip: "text",
           },
         },
       },
@@ -32,4 +35,4 @@ export const theme = createTheme({
       },
     },
   },
-});
+};

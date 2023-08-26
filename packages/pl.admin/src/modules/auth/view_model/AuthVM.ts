@@ -1,10 +1,10 @@
-import { makeAutoObservable } from 'mobx';
-import { RequestAuthDTO, ResponseLoginServiceDTO } from '../model/interface';
-import { AuthRepository } from '../repository/AuthRepository';
-import { inject, injectable } from 'inversify';
-import { Router } from 'router5';
-import { CORE_ROUTES } from '../../core/config/routes';
-import { AuthModel } from '../model/AuthModel';
+import { makeAutoObservable } from "mobx";
+import { RequestAuthDTO, ResponseLoginServiceDTO } from "../model/interface";
+import { AuthRepository } from "../repository/AuthRepository";
+import { inject, injectable } from "inversify";
+import { Router } from "router5";
+import { CORE_ROUTES } from "../../core/config/routes";
+import { AuthModel } from "../model/auth.model.ts";
 
 @injectable()
 export class AuthViewModel {
@@ -44,5 +44,9 @@ export class AuthViewModel {
       router.navigate(CORE_ROUTES.HOME);
     }
     return response;
+  }
+
+  async logout(): Promise<void> {
+    await this.authRepository.logout();
   }
 }

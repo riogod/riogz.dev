@@ -1,16 +1,16 @@
-import Avatar from '@mui/material/Avatar';
-import Button from '@mui/material/Button';
-import TextField from '@mui/material/TextField';
-import Box from '@mui/material/Box';
-import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
-import Typography from '@mui/material/Typography';
-import Container from '@mui/material/Container';
-import { AuthViewModel } from '../../view_model/AuthVM';
-import { useVM } from '../../../../ui/hooks/useVM';
-import { useRouter } from 'react-router5';
-import Paper from '@mui/material/Paper';
-import { theme } from '../../../../config/theme';
-import { LoginBackdrop } from './components/LoginBackdrop';
+import Avatar from "@mui/material/Avatar";
+import Button from "@mui/material/Button";
+import TextField from "@mui/material/TextField";
+import Box from "@mui/material/Box";
+import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
+import Typography from "@mui/material/Typography";
+import Container from "@mui/material/Container";
+import { AuthViewModel } from "../../view_model/AuthVM";
+import { useVM } from "../../../../ui/hooks/useVM";
+import { useRouter } from "react-router5";
+import Paper from "@mui/material/Paper";
+// import { theme } from '../../../../config/theme';
+import { LoginBackdrop } from "./components/LoginBackdrop";
 
 export default function SignIn() {
   const authVM = useVM<AuthViewModel>(AuthViewModel);
@@ -22,8 +22,8 @@ export default function SignIn() {
 
     await authVM.authenticate(
       {
-        email: data.get('email')?.toString() || '',
-        password: data.get('password')?.toString() || 'a',
+        email: data.get("email")?.toString() || "",
+        password: data.get("password")?.toString() || "a",
       },
       router,
     );
@@ -35,13 +35,13 @@ export default function SignIn() {
         <Paper
           sx={{
             marginTop: 8,
-            padding: theme.spacing(4),
-            display: 'flex',
-            flexDirection: 'column',
-            alignItems: 'center',
+            padding: (theme) => theme.spacing(4),
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
           }}
         >
-          <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
+          <Avatar sx={{ m: 1, bgcolor: "secondary.main" }}>
             <LockOutlinedIcon />
           </Avatar>
           <Typography component="h1" variant="h5">

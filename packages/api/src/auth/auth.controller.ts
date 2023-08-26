@@ -9,7 +9,8 @@ import {
   UseGuards,
   Patch,
   Delete,
-  SerializeOptions, Res,
+  SerializeOptions,
+  Res,
 } from '@nestjs/common';
 import { AuthService } from './auth.service';
 import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
@@ -25,7 +26,10 @@ import { User } from '../users/entities/user.entity';
 import { NullableType } from '../utils/types/nullable.type';
 import { Response } from 'express';
 
-const cookieOptions = process.env.NODE_ENV !== 'production' ?  {  secure: false } : { secure: true, domain: '.riogz.dev' };
+const cookieOptions =
+  process.env.NODE_ENV !== 'production'
+    ? { secure: false }
+    : { secure: true, domain: '.riogz.dev' };
 
 @ApiTags('Auth')
 @Controller({
@@ -56,7 +60,7 @@ export class AuthController {
   public async adminLogin(
     @Body() loginDTO: AuthEmailLoginDto,
     @Request() request,
-    @Res({ passthrough: true }) response: Response
+    @Res({ passthrough: true }) response: Response,
   ): Promise<LoginResponseType> {
     const deviceId = request.header('Device-Id');
     const data = await this.service.validateLogin(loginDTO, true, deviceId);
@@ -64,12 +68,12 @@ export class AuthController {
     response.cookie('accessToken', data.token, {
       maxAge: this.service.tokenExpiresIn,
       httpOnly: false,
-      ...cookieOptions
+      ...cookieOptions,
     });
     response.cookie('refreshToken', data.refreshToken, {
       maxAge: this.service.refreshTokenExpiresIn,
       httpOnly: true,
-      ...cookieOptions
+      ...cookieOptions,
     });
     return data;
   }
@@ -123,22 +127,28 @@ export class AuthController {
   @Post('refresh')
   @UseGuards(AuthGuard(['jwt-refresh-cookie', 'jwt-refresh']))
   @HttpCode(HttpStatus.OK)
-  public async refresh(@Request() request, @Res({ passthrough: true }) response: Response): Promise<Omit<LoginResponseType, 'user'>> {
+  public async refresh(
+    @Request() request,
+    @Res({ passthrough: true }) response: Response,
+  ): Promise<Omit<LoginResponseType, 'user'>> {
     const deviceId = request.header('Device-Id');
 
-    const data = await this.service.refreshToken({
-      sessionId: request.user.sessionId,
-    }, deviceId);
+    const data = await this.service.refreshToken(
+      {
+        sessionId: request.user.sessionId,
+      },
+      deviceId,
+    );
 
     response.cookie('accessToken', data.token, {
       maxAge: this.service.tokenExpiresIn,
       httpOnly: false,
-      ...cookieOptions
+      ...cookieOptions,
     });
     response.cookie('refreshToken', data.refreshToken, {
       maxAge: this.service.refreshTokenExpiresIn,
       httpOnly: true,
-      ...cookieOptions
+      ...cookieOptions,
     });
 
     return data;
@@ -148,7 +158,13 @@ export class AuthController {
   @Post('logout')
   @UseGuards(AuthGuard(['jwt-cookie', 'jwt']))
   @HttpCode(HttpStatus.NO_CONTENT)
-  public async logout(@Request() request): Promise<void> {
+  public async logout(
+    @Request() request,
+    @Res({ passthrough: true }) response: Response,
+  ): Promise<void> {
+    response.clearCookie('accessToken');
+    response.clearCookie('refreshToken');
+
     await this.service.logout({
       sessionId: request.user.sessionId,
     });
@@ -175,6 +191,4 @@ export class AuthController {
   public async delete(@Request() request): Promise<void> {
     return this.service.softDelete(request.user);
   }
-
-
 }

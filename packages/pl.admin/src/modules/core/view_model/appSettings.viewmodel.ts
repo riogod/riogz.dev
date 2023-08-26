@@ -1,9 +1,11 @@
-import { makeAutoObservable } from 'mobx';
-import { inject, injectable } from 'inversify';
-import { AuthModel } from '../../auth/model/AuthModel';
+import { makeAutoObservable } from "mobx";
+import { inject, injectable } from "inversify";
+import { AuthModel } from "../../auth/model/auth.model.ts";
+import { AppModel } from "../model/app.model.ts";
+import { ThemeMode } from "../model/interface.ts";
 
 @injectable()
-export class AppSettingsVM {
+export class AppSettingsViewmodel {
   _serviceAvable: boolean = true;
   get auth() {
     return this.authModel.auth;
@@ -20,6 +22,10 @@ export class AppSettingsVM {
     return this._serviceAvable;
   }
 
+  get themeMode() {
+    return this.appModel.appThemeMode;
+  }
+
   set serviceAvable(serviceAvable: boolean) {
     this._serviceAvable = serviceAvable;
   }
@@ -27,7 +33,13 @@ export class AppSettingsVM {
   constructor(
     @inject(AuthModel)
     private authModel: AuthModel,
+    @inject(AppModel)
+    private appModel: AppModel,
   ) {
     makeAutoObservable(this);
+  }
+
+  setThemeMode(themeMode: ThemeMode | undefined) {
+    this.appModel.appThemeMode = themeMode;
   }
 }
