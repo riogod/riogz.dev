@@ -15,6 +15,9 @@ export const theme: ThemeOptions = {
       contrastText: "#000",
     },
   },
+  shape: {
+    borderRadius: 8,
+  },
   components: {
     MuiUseMediaQuery: {
       defaultProps: {

@@ -1,27 +1,33 @@
 import { styled } from "@mui/material/styles";
-import { ButtonProps } from "@mui/material";
 import Button from "@mui/material/Button";
+import { IButtonProps } from "./interfaces.tsx";
 
-export const MenuButtonStyled = styled((props: ButtonProps) => (
+export const MenuButtonStyled = styled((props: IButtonProps) => (
   <Button {...props} />
-))(({ theme }) => ({
-  border: `0px solid ${theme.palette.divider}`,
+))(({ theme, active }) => ({
   textTransform: "none",
   paddingLeft: theme.spacing(4),
-  color: theme.palette.text.primary,
-  "&:hover": {
-    backgroundColor:
-      theme.palette.mode === "dark"
-        ? "rgba(255, 255, 255, .05)"
-        : "rgba(0, 0, 0, .03)",
-  },
-  "&::before": {
+  backgroundColor: active
+    ? theme.palette.mode === "dark"
+      ? "rgba(255, 255, 255, .03)"
+      : "rgba(0, 0, 0, .03)"
+    : "transparent",
+  color: active ? theme.palette.primary.main : theme.palette.text.primary,
+  "&:before": {
     position: "absolute",
     content: '""',
     display: "block",
     height: "100%",
-    backgroundColor: theme.palette.divider,
+    backgroundColor: active
+      ? theme.palette.primary.main
+      : theme.palette.divider,
     width: "1px",
     left: "12px",
+  },
+  "&:hover": {
+    backgroundColor:
+      theme.palette.mode === "dark"
+        ? "rgba(255, 255, 255, .05)"
+        : "rgba(0, 0, 0, .05)",
   },
 }));

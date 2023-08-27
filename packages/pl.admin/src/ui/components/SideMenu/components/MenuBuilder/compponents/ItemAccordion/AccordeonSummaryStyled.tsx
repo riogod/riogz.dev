@@ -21,7 +21,7 @@ export const AccordionSummaryStyled = styled((props: AccordionSummaryProps) => (
   marginTop: theme.spacing(1),
   marginRight: theme.spacing(1),
   marginLeft: theme.spacing(1),
-  // paddingLeft: theme.spacing(1),
+  textTransform: "none",
   borderRadius: theme.shape.borderRadius,
   minHeight: "auto",
   "& .MuiAccordionSummary-expandIconWrapper.Mui-expanded": {

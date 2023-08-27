@@ -17,7 +17,11 @@ const ItemAccordion: FC<IProps> = ({ item }) => {
       </AccordionSummaryStyled>
       <AccordionDetails sx={{ px: 1, pt: 0 }}>
         {children?.map((child, index) => (
-          <MenuButton key={index} text={child.text} />
+          <MenuButton
+            key={index}
+            text={child.text}
+            navigate={child.navigate || ""}
+          />
         ))}
       </AccordionDetails>
     </AccordionStyled>
