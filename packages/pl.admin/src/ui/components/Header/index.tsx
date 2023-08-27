@@ -11,6 +11,7 @@ import { useVM } from "../../hooks/useVM.ts";
 import { AuthViewModel } from "../../../modules/auth/view_model/AuthVM.ts";
 import { useRouter } from "react-router5";
 import IconButton from "../IconButton";
+import { AUTH_ROUTES } from "../../../modules/auth/config/routes.ts";
 
 const Header: FC<IProps> = ({ open, handleAppSettingsOpen }) => {
   const auth = useVM<AuthViewModel>(AuthViewModel);
@@ -18,7 +19,7 @@ const Header: FC<IProps> = ({ open, handleAppSettingsOpen }) => {
 
   const logoutHandler = async () => {
     await auth.logout();
-    router.navigate("login");
+    router.navigate(AUTH_ROUTES.LOGIN);
   };
   return (
     <AppBarStyled open={open} color="transparent">

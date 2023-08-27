@@ -1,14 +1,14 @@
 import { AxiosError } from "@riogz/lib.core";
 import { Bootstrap } from "../../../bootstrap";
 import { AUTH_ROUTES } from "./routes";
-import { AppSettingsViewmodel } from "../../core/view_model/appSettings.viewmodel.ts";
+import { AppSettingsViewModel } from "../../core/view_model/appSettings.viewmodel.ts";
 
 type TCallbacks = (error: AxiosError) => void;
 
 export const HttpErrorHandler = (bootstrap: Bootstrap) => {
   const errorMap: Record<string, TCallbacks> = {
     ERR_NETWORK: (_err) => {
-      const settings = bootstrap.di.get(AppSettingsViewmodel);
+      const settings = bootstrap.di.get(AppSettingsViewModel);
       settings.serviceAvable = false;
       if (!settings.auth) {
         bootstrap.router.navigate(AUTH_ROUTES.LOGIN);

@@ -14,6 +14,7 @@ const drawerWidth = 250;
 const Layout: FC<IProps> = ({}) => {
   const [open, setOpen] = useState(false);
   const [openAppSettings, setOpenAppSettings] = useState(false);
+  // const appBarRef = useRef(null);
 
   const openAppSettingsHandler = () => {
     setOpenAppSettings(true);
@@ -39,7 +40,7 @@ const Layout: FC<IProps> = ({}) => {
   const handleDrawerOpen = () => {
     setOpen(true);
   };
-
+  // console.log(appBarRef.current);
   return (
     <>
       <Header
@@ -48,7 +49,7 @@ const Layout: FC<IProps> = ({}) => {
         handleAppSettingsOpen={openAppSettingsHandler}
       />
       {/*<Container content="main">*/}
-      <SideMenu drawerWidth={drawerWidth} />
+      <SideMenu drawerWidth={drawerWidth} topbarHeight={65} />
       <AppSettingsDrawer
         drawerWidth={350}
         open={openAppSettings}

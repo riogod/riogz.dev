@@ -7,16 +7,16 @@ import DarkModeOutlinedIcon from "@mui/icons-material/DarkModeOutlined";
 import Typography from "@mui/material/Typography";
 import { Observer } from "mobx-react-lite";
 import { useVM } from "../../../../hooks/useVM.ts";
-import { AppSettingsViewmodel } from "../../../../../modules/core/view_model/appSettings.viewmodel.ts";
 import { ThemeMode } from "../../../../../modules/core/model/interface.ts";
+import { UISettingsViewModel } from "../../../../../modules/core/view_model/uiSettings.viewmodel.ts";
 
 const ThemeModeToggle: FC<IProps> = ({}) => {
-  const app = useVM<AppSettingsViewmodel>(AppSettingsViewmodel);
+  const ui = useVM<UISettingsViewModel>(UISettingsViewModel);
   const handleAlignment = (
     _event: React.MouseEvent<HTMLElement>,
     value: ThemeMode,
   ) => {
-    app.setThemeMode(value);
+    ui.setThemeMode(value);
   };
 
   return (
@@ -26,7 +26,7 @@ const ThemeModeToggle: FC<IProps> = ({}) => {
           <Typography variant="subtitle2">MODE</Typography>
           <Box>
             <ToggleButtonGroup
-              value={app.colorModeSettings}
+              value={ui.colorModeSettings}
               color="primary"
               exclusive
               size="small"

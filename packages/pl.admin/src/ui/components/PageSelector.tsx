@@ -3,7 +3,7 @@ import { Link, useRoute } from "react-router5";
 import { AUTH_ROUTES } from "../../modules/auth/config/routes";
 import SignIn from "../../modules/auth/ui/Login";
 import Layout from "./Layout";
-import { AppSettingsViewmodel } from "../../modules/core/view_model/appSettings.viewmodel.ts";
+import { AppSettingsViewModel } from "../../modules/core/view_model/appSettings.viewmodel.ts";
 import { useVM } from "../hooks/useVM";
 import { observer } from "mobx-react-lite";
 import { CORE_ROUTES } from "../../modules/core/config/routes";
@@ -11,7 +11,7 @@ import { CORE_ROUTES } from "../../modules/core/config/routes";
 interface IProps {}
 
 const PagesSelector: FC<IProps> = ({}) => {
-  const app = useVM<AppSettingsViewmodel>(AppSettingsViewmodel);
+  const app = useVM<AppSettingsViewModel>(AppSettingsViewModel);
   const route = useRoute().route;
 
   if (route.name === AUTH_ROUTES.LOGIN) {
