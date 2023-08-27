@@ -48,5 +48,7 @@ export class AuthViewModel {
 
   async logout(): Promise<void> {
     await this.authRepository.logout();
+    this.authModel.setAuthComplete(false);
+    this.authModel.setAuth(false);
   }
 }
