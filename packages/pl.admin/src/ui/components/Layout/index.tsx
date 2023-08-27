@@ -4,6 +4,7 @@ import Box from "@mui/material/Box";
 import Header from "../Header";
 import Toolbar from "@mui/material/Toolbar";
 import SideMenu from "../SideMenu";
+import AppSettingsDrawer from "../AppSettingsDrawer";
 // import { useMediaQuery } from "@mui/material";
 
 interface IProps {}
@@ -12,6 +13,15 @@ const drawerWidth = 250;
 
 const Layout: FC<IProps> = ({}) => {
   const [open, setOpen] = useState(false);
+  const [openAppSettings, setOpenAppSettings] = useState(false);
+
+  const openAppSettingsHandler = () => {
+    setOpenAppSettings(true);
+  };
+
+  const closeAppSettingsHandler = () => {
+    setOpenAppSettings(false);
+  };
   // const prefersDarkMode = useMediaQuery("(prefers-color-scheme: dark)");
   // const isDesktopOrLaptop = useMediaQuery("(min-width: 1224px)");
   // const isBigScreen = useMediaQuery("(min-width: 1824px)");
@@ -32,9 +42,18 @@ const Layout: FC<IProps> = ({}) => {
 
   return (
     <>
-      <Header open={open} handleDrawerOpen={handleDrawerOpen} />
+      <Header
+        open={open}
+        handleDrawerOpen={handleDrawerOpen}
+        handleAppSettingsOpen={openAppSettingsHandler}
+      />
       {/*<Container content="main">*/}
       <SideMenu drawerWidth={drawerWidth} />
+      <AppSettingsDrawer
+        drawerWidth={350}
+        open={openAppSettings}
+        closeHandler={closeAppSettingsHandler}
+      />
       <Box
         component="main"
         sx={{ flexGrow: 1, bgcolor: "background.default", p: 3 }}

@@ -26,6 +26,10 @@ export class AppSettingsViewmodel {
     return this.appModel.appThemeMode;
   }
 
+  get colorModeSettings() {
+    return this.appModel.colorModeSettings;
+  }
+
   set serviceAvable(serviceAvable: boolean) {
     this._serviceAvable = serviceAvable;
   }
@@ -39,7 +43,7 @@ export class AppSettingsViewmodel {
     makeAutoObservable(this);
   }
 
-  setThemeMode(themeMode: ThemeMode | undefined) {
-    this.appModel.appThemeMode = themeMode;
+  setThemeMode(themeMode: ThemeMode) {
+    this.appModel.appThemeMode = themeMode === "system" ? undefined : themeMode;
   }
 }

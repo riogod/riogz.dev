@@ -8,5 +8,4 @@ export const AppBarStyled = styled(
 )<AppBarProps>(({}) => ({
   boxShadow: "none",
   backdropFilter: "blur(8px)",
-  // backgroundColor: "rgba(16, 20, 24, 0.8)",
 }));
