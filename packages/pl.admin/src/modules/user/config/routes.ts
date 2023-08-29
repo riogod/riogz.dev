@@ -1,5 +1,7 @@
 import { IRoutes } from "@riogz/lib.core";
 import { lazy } from "react";
+import { UsersViewModel } from "../view_model/users.viewmodel.ts";
+import { Container } from "inversify";
 
 const UserList = lazy(() => import("../ui/user.list"));
 const UserRoles = lazy(() => import("../ui/user.roles"));
@@ -24,7 +26,11 @@ export const routes: IRoutes = [
     name: USER_ROUTES.USERS_LIST,
     path: "/list",
     pageComponent: UserList,
-    onEnter: async (_router): Promise<void> => {},
+    onEnter: async (router): Promise<void> => {
+      const container = router.getDependencies().di as Container;
+
+      await container.get(UsersViewModel).loadAllUsers({});
+    },
     menu: {
       text: "All users",
       sortOrder: 1000,

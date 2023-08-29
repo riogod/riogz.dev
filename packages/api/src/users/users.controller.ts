@@ -59,7 +59,6 @@ export class UsersController {
     if (limit > 50) {
       limit = 50;
     }
-
     return infinityPagination(
       await this.usersService.findManyWithPagination({
         page,

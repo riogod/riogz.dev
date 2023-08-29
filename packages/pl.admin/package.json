@@ -14,6 +14,7 @@
     "@emotion/styled": "^11.11.0",
     "@mui/icons-material": "^5.14.6",
     "@mui/material": "^5.14.6",
+    "@mui/x-data-grid": "^6.12.0",
     "@riogz/lib.core": "0.0.1",
     "@vitejs/plugin-basic-ssl": "^1.0.1",
     "add": "^2.0.6",

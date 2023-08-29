@@ -893,7 +893,7 @@
   dependencies:
     regenerator-runtime "^0.14.0"
 
-"@babel/runtime@^7.22.10":
+"@babel/runtime@^7.22.10", "@babel/runtime@^7.22.11":
   version "7.22.11"
   resolved "https://registry.yarnpkg.com/@babel/runtime/-/runtime-7.22.11.tgz#7a9ba3bbe406ad6f9e8dd4da2ece453eb23a77a4"
   integrity sha512-ee7jVNlWN09+KftVOu9n7S8gQzD/Z6hN/I8VBRXW4P1+Xe7kJGXMwu8vds4aGIMHZnNbdpSWCfZZtinytpcAvA==
@@ -1712,6 +1712,17 @@
   resolved "https://registry.yarnpkg.com/@mui/types/-/types-7.2.4.tgz#b6fade19323b754c5c6de679a38f068fd50b9328"
   integrity sha512-LBcwa8rN84bKF+f5sDyku42w1NTxaPgPyYKODsh01U1fVstTClbUoSA96oyRBnSNyEiAVjKm6Gwx9vjR+xyqHA==
 
+"@mui/utils@^5.14.5":
+  version "5.14.7"
+  resolved "https://registry.yarnpkg.com/@mui/utils/-/utils-5.14.7.tgz#3677bcabe032f1185e151f57d8c1a166df3ae0a1"
+  integrity sha512-RtheP/aBoPogVdi8vj8Vo2IFnRa4mZVmnD0RGlVZ49yF60rZs+xP4/KbpIrTr83xVs34QmHQ2aQ+IX7I0a0dDw==
+  dependencies:
+    "@babel/runtime" "^7.22.10"
+    "@types/prop-types" "^15.7.5"
+    "@types/react-is" "^18.2.1"
+    prop-types "^15.8.1"
+    react-is "^18.2.0"
+
 "@mui/utils@^5.14.6":
   version "5.14.6"
   resolved "https://registry.yarnpkg.com/@mui/utils/-/utils-5.14.6.tgz#614338f781faf21535fbf1094b6691aaee1ff472"
@@ -1722,6 +1733,17 @@
     "@types/react-is" "^18.2.1"
     prop-types "^15.8.1"
     react-is "^18.2.0"
+
+"@mui/x-data-grid@^6.12.0":
+  version "6.12.0"
+  resolved "https://registry.yarnpkg.com/@mui/x-data-grid/-/x-data-grid-6.12.0.tgz#bb4a020cc352d1a48498ac7d4f0aca41fac653b4"
+  integrity sha512-ZuQ8Uq/dF6gjrE/qU6VvP3tgy9n78DdCMD6hbXy/uDIoddJ4J8hSn9S6flnFnFQbRZzF/Q/pPWXZTR4oeg8NQg==
+  dependencies:
+    "@babel/runtime" "^7.22.11"
+    "@mui/utils" "^5.14.5"
+    clsx "^2.0.0"
+    prop-types "^15.8.1"
+    reselect "^4.1.8"
 
 "@nestjs/cli@10.1.12":
   version "10.1.12"
@@ -9509,6 +9531,11 @@ require-from-string@^2.0.2:
   version "2.0.2"
   resolved "https://registry.yarnpkg.com/require-from-string/-/require-from-string-2.0.2.tgz#89a7fdd938261267318eafe14f9c32e598c36909"
   integrity sha512-Xf0nWe6RseziFMu+Ap9biiUbmplq6S9/p+7w7YXP/JBHhrUDDUhwa+vANyubuqfZWTveU//DYVGsDG7RKL/vEw==
+
+reselect@^4.1.8:
+  version "4.1.8"
+  resolved "https://registry.yarnpkg.com/reselect/-/reselect-4.1.8.tgz#3f5dc671ea168dccdeb3e141236f69f02eaec524"
+  integrity sha512-ab9EmR80F/zQTMNeneUr4cv+jSwPJgIlvEmVwLerwrWVbpLlBuls9XHzIeTFy4cegU2NHBp3va0LKOzU5qFEYQ==
 
 resolve-cwd@^3.0.0:
   version "3.0.0"

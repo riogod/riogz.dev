@@ -33,9 +33,12 @@ import { JwtPayloadType } from './strategies/types/jwt-payload.type';
 
 @Injectable()
 export class AuthService {
-
-  tokenExpiresIn = Number(ms(this.configService.getOrThrow('auth.expires', { infer: true })));
-  refreshTokenExpiresIn = Number(ms(this.configService.getOrThrow('auth.refreshExpires', { infer: true })));
+  tokenExpiresIn = Number(
+    ms(this.configService.getOrThrow('auth.expires', { infer: true })),
+  );
+  refreshTokenExpiresIn = Number(
+    ms(this.configService.getOrThrow('auth.refreshExpires', { infer: true })),
+  );
   constructor(
     private jwtService: JwtService,
     private usersService: UsersService,
@@ -47,14 +50,17 @@ export class AuthService {
   async validateLogin(
     loginDto: AuthEmailLoginDto,
     onlyAdmin: boolean,
-    deviceId: Session['deviceId']
+    deviceId: Session['deviceId'],
   ): Promise<LoginResponseType> {
     const user = await this.usersService.findOne({
       email: loginDto.email,
     });
     if (
       !user ||
-      (user.role  && !(onlyAdmin ? [RoleEnum.admin] : [RoleEnum.user]).some(item => user.role.some(role => role.id === item)))
+      (user.role &&
+        !(onlyAdmin ? [RoleEnum.admin] : [RoleEnum.user]).some((item) =>
+          user.role.some((role) => role.id === item),
+        ))
     ) {
       throw new HttpException(
         {
@@ -98,15 +104,16 @@ export class AuthService {
 
     const session = await this.sessionService.create({
       user,
-      deviceId
+      deviceId,
     });
 
-    const { token, refreshToken, tokenExpires, refreshTokenExpires } = await this.getTokensData({
-      id: user.id,
-      role: user.role,
-      sessionId: session.id,
-      deviceId: deviceId
-    });
+    const { token, refreshToken, tokenExpires, refreshTokenExpires } =
+      await this.getTokensData({
+        id: user.id,
+        role: user.role,
+        sessionId: session.id,
+        deviceId: deviceId,
+      });
 
     return {
       refreshToken,
@@ -120,7 +127,7 @@ export class AuthService {
   async validateSocialLogin(
     authProvider: string,
     socialData: SocialInterface,
-    deviceId: Session['deviceId']
+    deviceId: Session['deviceId'],
   ): Promise<LoginResponseType> {
     let user: NullableType<User>;
     const socialEmail = socialData.email?.toLowerCase();
@@ -189,7 +196,7 @@ export class AuthService {
       id: user.id,
       role: user.role,
       sessionId: session.id,
-      deviceId
+      deviceId,
     });
 
     return {
@@ -210,9 +217,11 @@ export class AuthService {
     await this.usersService.create({
       ...dto,
       email: dto.email,
-      role: [{
-        id: RoleEnum.user,
-      } as Role],
+      role: [
+        {
+          id: RoleEnum.user,
+        } as Role,
+      ],
       status: {
         id: StatusEnum.inactive,
       } as Status,
@@ -387,7 +396,7 @@ export class AuthService {
 
   async refreshToken(
     data: Pick<JwtRefreshPayloadType, 'sessionId'>,
-    deviceId: Session['deviceId']
+    deviceId: Session['deviceId'],
   ): Promise<Omit<LoginResponseType, 'user'>> {
     const session = await this.sessionService.findOne({
       where: {
@@ -399,18 +408,19 @@ export class AuthService {
       throw new UnauthorizedException();
     }
 
-    const { token, refreshToken, tokenExpires, refreshTokenExpires } = await this.getTokensData({
-      id: session.user.id,
-      role: session.user.role,
-      sessionId: session.id,
-      deviceId
-    });
+    const { token, refreshToken, tokenExpires, refreshTokenExpires } =
+      await this.getTokensData({
+        id: session.user.id,
+        role: session.user.role,
+        sessionId: session.id,
+        deviceId,
+      });
 
     return {
       token,
       refreshToken,
       tokenExpires,
-      refreshTokenExpires
+      refreshTokenExpires,
     };
   }
 
@@ -434,9 +444,12 @@ export class AuthService {
       infer: true,
     });
 
-    const refreshTokenExpiresIn = this.configService.getOrThrow('auth.refreshExpires', {
-      infer: true,
-    });
+    const refreshTokenExpiresIn = this.configService.getOrThrow(
+      'auth.refreshExpires',
+      {
+        infer: true,
+      },
+    );
 
     const tokenExpires = Date.now() + ms(tokenExpiresIn);
     const refreshTokenExpires = Date.now() + ms(refreshTokenExpiresIn);
@@ -447,7 +460,7 @@ export class AuthService {
           id: data.id,
           role: data.role,
           sessionId: data.sessionId,
-          deviceId: data.deviceId
+          deviceId: data.deviceId,
         },
         {
           secret: this.configService.getOrThrow('auth.secret', { infer: true }),
@@ -457,7 +470,7 @@ export class AuthService {
       await this.jwtService.signAsync(
         {
           sessionId: data.sessionId,
-          deviceId: data.deviceId
+          deviceId: data.deviceId,
         },
         {
           secret: this.configService.getOrThrow('auth.refreshSecret', {
@@ -474,7 +487,7 @@ export class AuthService {
       token,
       refreshToken,
       tokenExpires,
-      refreshTokenExpires
+      refreshTokenExpires,
     };
   }
 }
