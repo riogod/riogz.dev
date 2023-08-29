@@ -188,6 +188,7 @@ export class Bootstrap {
           icon: route.menu.icon,
           sortOrder: route.menu.sortOrder,
           navigate: route.menu.navigate,
+          pageComponent: route.pageComponent,
         });
       } else {
         menuConfig.push({
@@ -196,6 +197,7 @@ export class Bootstrap {
           icon: route.menu.icon,
           sortOrder: route.menu.sortOrder,
           navigate: route.menu.navigate,
+          pageComponent: route.pageComponent,
           children: route.children && this.buildRoutesMenu(route.children),
         });
       }

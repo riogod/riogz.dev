@@ -85,6 +85,10 @@ export interface IMenuItem {
    * Дочерние элементы меню
    */
   children?: IMenuItem[];
+  /**
+   * Компонент отображаемой страницы
+   */
+  pageComponent?: FunctionComponent;
 }
 
 export type IRoutes = IRoute[];

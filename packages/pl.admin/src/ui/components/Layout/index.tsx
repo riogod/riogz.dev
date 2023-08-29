@@ -5,6 +5,7 @@ import Header from "../Header";
 import Toolbar from "@mui/material/Toolbar";
 import SideMenu from "../SideMenu";
 import AppSettingsDrawer from "../AppSettingsDrawer";
+import ContentContainer from "../ContentContainer";
 // import { useMediaQuery } from "@mui/material";
 
 interface IProps {}
@@ -60,14 +61,15 @@ const Layout: FC<IProps> = ({}) => {
         sx={{ flexGrow: 1, bgcolor: "background.default", p: 3 }}
       >
         <Toolbar />
-        {[...new Array(62)]
-          .map(
-            () => `Cras mattis consectetur purus sit amet fermentum.
-Cras justo odio, dapibus ac facilisis in, egestas eget quam.
-Morbi leo risus, porta ac consectetur ac, vestibulum at eros.
-Praesent commodo cursus magna, vel scelerisque nisl consectetur et.`,
-          )
-          .join("\n")}
+        <ContentContainer />
+        {/*        {[...new Array(62)]*/}
+        {/*          .map(*/}
+        {/*            () => `Cras mattis consectetur purus sit amet fermentum.*/}
+        {/*Cras justo odio, dapibus ac facilisis in, egestas eget quam.*/}
+        {/*Morbi leo risus, porta ac consectetur ac, vestibulum at eros.*/}
+        {/*Praesent commodo cursus magna, vel scelerisque nisl consectetur et.`,*/}
+        {/*          )*/}
+        {/*          .join("\n")}*/}
       </Box>
       {/*</Container>*/}
     </>

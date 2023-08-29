@@ -1,4 +1,8 @@
 import { IRoutes } from "@riogz/lib.core";
+import { lazy } from "react";
+
+const UserList = lazy(() => import("../ui/user.list"));
+const UserRoles = lazy(() => import("../ui/user.roles"));
 
 export const USER_ROUTES = {
   USERS: "users",
@@ -19,6 +23,7 @@ export const routes: IRoutes = [
   {
     name: USER_ROUTES.USERS_LIST,
     path: "/list",
+    pageComponent: UserList,
     onEnter: async (_router): Promise<void> => {},
     menu: {
       text: "All users",
@@ -29,6 +34,7 @@ export const routes: IRoutes = [
   {
     name: USER_ROUTES.USERS_ROLES,
     path: "/roles",
+    pageComponent: UserRoles,
     onEnter: async (_router): Promise<void> => {},
     menu: {
       text: "Roles",
