@@ -6,5 +6,5 @@ export interface IProps extends ButtonProps {
 }
 
 export interface IButtonProps extends ButtonProps {
-  active?: boolean;
+  active?: string;
 }

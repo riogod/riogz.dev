@@ -7,14 +7,13 @@ const MenuButton: FC<IProps> = ({ text, navigate, ...props }) => {
   const router = useRouter();
   const route = useRoute();
 
-  console.log();
   return (
     <MenuButtonStyled
       {...props}
       fullWidth={true}
       disableRipple={true}
       size="small"
-      active={route.route.name === navigate}
+      active={String(route.route.name === navigate)}
       sx={{ justifyContent: "flex-start" }}
       onClick={() => {
         router.navigate(navigate);
