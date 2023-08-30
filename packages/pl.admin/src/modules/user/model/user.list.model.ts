@@ -1,4 +1,4 @@
-import { makeAutoObservable } from "mobx";
+import { makeAutoObservable, runInAction } from "mobx";
 import { inject, injectable } from "inversify";
 import { UsersRepository } from "../repository/UserRepository.ts";
 import { IUser } from "./interface.ts";
@@ -6,7 +6,13 @@ import { IRequestUserListDto } from "../repository/interface.ts";
 
 @injectable()
 export class UserListModel {
-  userList: IUser[] = [];
+  _userList: IUser[] = [];
+  _page = 1;
+  _limit = 25;
+
+  get userList() {
+    return this._userList;
+  }
   constructor(
     @inject(UsersRepository)
     private usersRepository: UsersRepository,
@@ -16,10 +22,14 @@ export class UserListModel {
 
   async loadAllUsers(params: IRequestUserListDto) {
     const list = await this.usersRepository.getAllUsers(params);
-    this.userList.push(...list.data);
+    runInAction(() => {
+      this._userList = list.data;
+    });
   }
 
   dispose() {
-    this.userList = [];
+    runInAction(() => {
+      this._userList = [];
+    });
   }
 }

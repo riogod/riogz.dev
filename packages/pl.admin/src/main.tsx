@@ -13,7 +13,7 @@ import { DIProvider } from "./ui/providers/DIProvider";
 import { configure } from "mobx";
 import ThemeSchema from "./ui/components/ThemeSchema";
 
-configure({ enforceActions: "observed", useProxies: "never" });
+configure({ enforceActions: "observed", useProxies: "ifavailable" });
 
 initBootstrap(new Bootstrap(app_modules), appConfig)
   .then(async (bootstrap) => {

@@ -16,7 +16,11 @@ export class UsersViewModel {
   }
 
   async loadAllUsers(params: IRequestUserListDto) {
-    console.log("!!!", params);
     await this.userListModel.loadAllUsers(params);
+  }
+
+  dispose() {
+    this.userListModel.dispose();
+    console.log(this.userListModel.userList);
   }
 }

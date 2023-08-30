@@ -1,4 +1,4 @@
-import { APIClient, IMenuItem } from "@riogz/lib.core";
+import { APIClient, IMenuItem, onExitSearch } from "@riogz/lib.core";
 import { APIClientHandler } from "./handlers/APIClient";
 import { RouterHandler } from "./handlers/RouterHandler";
 import { RouterPostHandler } from "./handlers/RouterPostHandler";
@@ -124,6 +124,8 @@ export class Bootstrap {
 
     this._router.setDependencies({ di: this._di, menu: appMenu });
     this._router = cb(this._router);
+
+    onExitSearch(this.routes, this.router);
     this._router.useMiddleware(
       titleMiddlewareFactory(this.routes),
       onEnterMiddlewareFactory(this.routes),

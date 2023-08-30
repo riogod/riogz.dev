@@ -6,8 +6,11 @@ import type { IOnSyncPathMiddlewareConfig } from "./middlewares/onSyncPath";
 import type { ITitleMiddlewareConfig } from "./middlewares/title";
 import type { FunctionComponent, ReactNode } from "react";
 import type { IPrivateRouteMiddlewareConfig } from "./middlewares/PrivateRoute";
+import type { IOnExitSearchUtilConfig } from "./middlewares/onExitSearch";
 export type RouterDependencies = Record<string, any>;
-export interface IRoute extends Route, IMiddlewareConfig {
+export interface IUtilsConfig extends IOnExitSearchUtilConfig {
+}
+export interface IRoute extends Route, IMiddlewareConfig, IUtilsConfig {
     /**
      * Переопределение интерфейса дочерних роутов
      */

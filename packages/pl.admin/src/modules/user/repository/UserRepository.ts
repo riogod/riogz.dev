@@ -12,10 +12,10 @@ class UsersRepository {
   ): Promise<IResponseUserListDto> {
     return await this.api.request<IRequestUserListDto, IResponseUserListDto>({
       method: HttpMethod.GET,
-      route: USER_ENDPOINTS.LIST,
+      route: USER_ENDPOINTS.LIST + "?page=1&limit=25",
       requestObj: {
         page: params.page || 1,
-        limit: params.limit || 25,
+        limit: params.limit || 10,
       },
     });
   }

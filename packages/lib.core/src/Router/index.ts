@@ -11,6 +11,7 @@ import { findSegment } from "./middlewares/libs/findSegment";
 import { privateRouteGuard } from "./middlewares/libs/privateRouterGuards";
 import { onEnterMiddlewareFactory } from "./middlewares/onEnter";
 import type { IOnEnterMiddlewareConfig } from "./middlewares/onEnter";
+import { onExitSearch } from "./middlewares/onExitSearch";
 import { onPathMiddlewareFactory } from "./middlewares/onPath";
 import type { IOnPathMiddlewareConfig } from "./middlewares/onPath";
 import { onSyncPathMiddlewareFactory } from "./middlewares/onSyncPath";
@@ -24,6 +25,7 @@ export {
   onSyncPathMiddlewareFactory,
   titleMiddlewareFactory,
   PrivateRouteMiddlewareFactory,
+  onExitSearch,
   findSegment,
   privateRouteGuard,
 };
