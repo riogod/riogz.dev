@@ -30,6 +30,11 @@ export const AccordionSummaryStyled = styled((props: AccordionSummaryProps) => (
   "& .MuiAccordionSummary-content": {
     margin: 0,
     marginLeft: theme.spacing(1),
+    overflow: "hidden",
+    textOverflow: "ellipsis",
+    whiteSpace: "nowrap",
+    display: "flex",
+    justifyContent: "space-between",
   },
   "&:hover": {
     backgroundColor:

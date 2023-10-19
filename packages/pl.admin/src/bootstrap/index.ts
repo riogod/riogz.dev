@@ -8,7 +8,7 @@ import { onEnterMiddlewareFactory } from "@riogz/lib.core";
 import { onPathMiddlewareFactory } from "@riogz/lib.core";
 import { onSyncPathMiddlewareFactory } from "@riogz/lib.core";
 import { Router } from "router5";
-import { DefaultDependencies } from "router5/dist/types/router";
+// import { DefaultDependencies } from "router5/dist/types/router";
 import browserPlugin from "router5-plugin-browser";
 import createRouter from "router5";
 import { Module } from "../modules/interface";
@@ -40,7 +40,7 @@ export const initBootstrap = async (
 
 export class Bootstrap {
   private _APIClient: APIClient | null = null;
-  private _router: Router<DefaultDependencies> = createRouter();
+  private _router: Router<any> = createRouter();
   private routes: IRoutes = [];
   private modulesAppInitCb = new Array<
     (bootstrap: Bootstrap) => Promise<void>
@@ -58,7 +58,7 @@ export class Bootstrap {
     return this._APIClient;
   }
 
-  get router(): Router<DefaultDependencies> {
+  get router(): Router<any> {
     return this._router;
   }
 
@@ -191,6 +191,8 @@ export class Bootstrap {
           sortOrder: route.menu.sortOrder,
           navigate: route.menu.navigate,
           pageComponent: route.pageComponent,
+          menuAlwaysExpand: route.menu.menuAlwaysExpand,
+          menuComponent: route.menuComponent,
         });
       } else {
         menuConfig.push({
@@ -200,6 +202,8 @@ export class Bootstrap {
           sortOrder: route.menu.sortOrder,
           navigate: route.menu.navigate,
           pageComponent: route.pageComponent,
+          menuAlwaysExpand: route.menu.menuAlwaysExpand,
+          menuComponent: route.menuComponent,
           children: route.children && this.buildRoutesMenu(route.children),
         });
       }

@@ -19,7 +19,7 @@ export const routes: IRoutes = [
     path: "/users",
     menu: {
       text: "Users",
-      sortOrder: 1000,
+      sortOrder: 2000,
     },
     onEnter: async (_router): Promise<void> => {},
   },
@@ -41,7 +41,9 @@ export const routes: IRoutes = [
     menu: {
       text: "All users",
       sortOrder: 1000,
-      navigate: USER_ROUTES.USERS_LIST,
+      navigate: {
+        path: USER_ROUTES.USERS_LIST,
+      },
     },
   },
   {
@@ -52,7 +54,9 @@ export const routes: IRoutes = [
     menu: {
       text: "Roles",
       sortOrder: 2000,
-      navigate: USER_ROUTES.USERS_ROLES,
+      navigate: {
+        path: USER_ROUTES.USERS_ROLES,
+      },
     },
   },
 ];

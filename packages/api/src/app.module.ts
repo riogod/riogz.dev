@@ -17,17 +17,13 @@ import { HomeModule } from './home/home.module';
 import { DataSource, DataSourceOptions } from 'typeorm';
 import { AllConfigType } from './config/config.type';
 import { SessionModule } from './session/session.module';
+import { ProjectModule } from './project/project.module';
 
 @Module({
   imports: [
     ConfigModule.forRoot({
       isGlobal: true,
-      load: [
-        databaseConfig,
-        authConfig,
-        appConfig,
-        googleConfig,
-      ],
+      load: [databaseConfig, authConfig, appConfig, googleConfig],
       envFilePath: ['.env'],
     }),
     TypeOrmModule.forRootAsync({
@@ -65,6 +61,7 @@ import { SessionModule } from './session/session.module';
     ForgotModule,
     SessionModule,
     HomeModule,
+    ProjectModule,
   ],
 })
 export class AppModule {}

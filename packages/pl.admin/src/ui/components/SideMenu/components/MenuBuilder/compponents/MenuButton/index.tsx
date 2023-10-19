@@ -13,10 +13,12 @@ const MenuButton: FC<IProps> = ({ text, navigate, ...props }) => {
       fullWidth={true}
       disableRipple={true}
       size="small"
-      active={String(route.route.name === navigate)}
+      active={String(route.route.name === navigate?.path)}
       sx={{ justifyContent: "flex-start" }}
       onClick={() => {
-        router.navigate(navigate);
+        if (navigate) {
+          router.navigate(navigate.path, { id: navigate?.id });
+        }
       }}
     >
       {text}

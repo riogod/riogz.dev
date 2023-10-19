@@ -40,13 +40,10 @@ async function bootstrap() {
   const document = SwaggerModule.createDocument(app, options);
   SwaggerModule.setup('docs', app, document);
   app.enableCors({
-    origin: [
-      'https://admin.riogz.ru',
-      'http://192.168.2.110:5173'
-    ],
+    origin: ['https://admin.riogz.ru', 'http://localhost:5173'],
     methods: 'GET,HEAD,PUT,PATCH,POST,DELETE,OPTIONS',
-    credentials: true
-  })
+    credentials: true,
+  });
   await app.listen(configService.getOrThrow('app.port', { infer: true }));
 }
 void bootstrap();

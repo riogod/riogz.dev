@@ -28,6 +28,10 @@ export interface IRoute extends Route, IMiddlewareConfig, IUtilsConfig {
    * Компонент отображаемый внутри pageComponent (например это может быть контент вкладки на странице карточки клиента)
    */
   component?: FunctionComponent;
+  /**
+   * компонент замены сабменю
+   */
+  menuComponent?: FunctionComponent;
 }
 
 export interface IMiddlewareConfig
@@ -37,6 +41,10 @@ export interface IMiddlewareConfig
     IPrivateRouteMiddlewareConfig,
     ITitleMiddlewareConfig {}
 
+export interface IMenuItemNavigate {
+  id?: string;
+  path: string;
+}
 export interface IMenuConfig {
   /**
    * Наименование кнопки перехода в табе или меню
@@ -51,7 +59,7 @@ export interface IMenuConfig {
   /**
    * Навигация роута
    */
-  navigate?: string;
+  navigate?: IMenuItemNavigate;
   /**
    * Иконка для отображения роута в сайдбаре
    */
@@ -60,6 +68,10 @@ export interface IMenuConfig {
    * Порядок отображения и активации пункта в меню (указывать в диапазоне от 1 до 1000, значение по умолчанию 1000)
    */
   sortOrder?: number;
+  /**
+   * Меню всегда раскрыто
+   */
+  menuAlwaysExpand?: boolean;
 }
 
 export interface IMenuItem {
@@ -82,7 +94,7 @@ export interface IMenuItem {
   /**
    * Навигация роута
    */
-  navigate?: string;
+  navigate?: IMenuItemNavigate;
   /**
    * Дочерние элементы меню
    */
@@ -91,6 +103,14 @@ export interface IMenuItem {
    * Компонент отображаемой страницы
    */
   pageComponent?: FunctionComponent;
+  /**
+   * Меню всегда раскрыто
+   */
+  menuAlwaysExpand?: boolean;
+  /**
+   * компонент замены сабменю
+   */
+  menuComponent?: FunctionComponent;
 }
 
 export type IRoutes = IRoute[];
