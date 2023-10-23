@@ -8,7 +8,6 @@ import { onEnterMiddlewareFactory } from "@riogz/lib.core";
 import { onPathMiddlewareFactory } from "@riogz/lib.core";
 import { onSyncPathMiddlewareFactory } from "@riogz/lib.core";
 import { Router } from "router5";
-// import { DefaultDependencies } from "router5/dist/types/router";
 import browserPlugin from "router5-plugin-browser";
 import createRouter from "router5";
 import { Module } from "../modules/interface";
@@ -21,6 +20,7 @@ import { privateRouteGuard } from "@riogz/lib.core";
 import { AUTH_ROUTES } from "../modules/auth/config/routes";
 import { routeAuthActivator } from "../modules/auth/config/routeAuthActivator";
 import { ClientHashHandler } from "./handlers/ClientHashHandler";
+import { AfterAppInitHandler } from "./handlers/AfterAppInitHandler.ts";
 
 export const initBootstrap = async (
   bootstrap: Bootstrap,
@@ -33,7 +33,8 @@ export const initBootstrap = async (
     .setNext(new ModulesHandler(config))
     .setNext(new DIHandler(config))
     .setNext(new RouterPostHandler(config))
-    .setNext(new HTTPErrorHandler(config));
+    .setNext(new HTTPErrorHandler(config))
+    .setNext(new AfterAppInitHandler(config));
 
   return await handler.handle(bootstrap);
 };
@@ -45,6 +46,8 @@ export class Bootstrap {
   private modulesAppInitCb = new Array<
     (bootstrap: Bootstrap) => Promise<void>
   >();
+
+  onAuthInitCb = new Array<(bootstrap: Bootstrap) => Promise<void>>();
 
   private _di: Container = new Container({
     autoBindInjectable: true,
@@ -150,6 +153,9 @@ export class Bootstrap {
       }
       if (module.config.onAppInit) {
         this.modulesAppInitCb.push(module.config.onAppInit);
+      }
+      if (module.config.onAuth) {
+        this.onAuthInitCb.push(module.config.onAuth);
       }
       loadedModules.push(module.name);
     }

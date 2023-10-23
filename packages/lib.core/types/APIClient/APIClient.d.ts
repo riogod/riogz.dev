@@ -1,5 +1,5 @@
-import type { AxiosError } from 'axios';
-import type { IRequestOption } from './interfaces';
+import type { AxiosError } from "axios";
+import type { IRequestOption } from "./interfaces";
 export declare class APIClient {
     private baseURL;
     private api;

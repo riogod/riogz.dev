@@ -6,7 +6,8 @@ import { UserProjectsViewModel } from "../view_model/projects.viewmodel.ts";
 export const config: ModuleConfig = {
   ROUTES: () => routes,
   onModuleInit: async (_bootstrap) => {},
-  onAppInit: async (bootstrap) => {
+  // onAppInit: async (bootstrap) => {},
+  onAuth: async (bootstrap) => {
     const vm = bootstrap.di.get(UserProjectsViewModel);
     try {
       await vm.loadAllProjects();

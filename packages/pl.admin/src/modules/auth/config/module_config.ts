@@ -1,7 +1,7 @@
-import { ModuleConfig } from '../../../bootstrap/interface';
-import { routes } from './routes';
-import { HttpErrorHandler } from './http_auth_error';
-import { AuthViewModel } from '../view_model/AuthVM';
+import { ModuleConfig } from "../../../bootstrap/interface";
+import { routes } from "./routes";
+import { HttpErrorHandler } from "./http_auth_error";
+import { AuthViewModel } from "../view_model/AuthVM";
 
 export const config: ModuleConfig = {
   ROUTES: () => routes,

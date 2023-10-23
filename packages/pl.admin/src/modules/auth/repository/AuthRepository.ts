@@ -1,18 +1,22 @@
 import { inject, injectable } from "inversify";
 import { APIClient, HttpMethod } from "@riogz/lib.core";
 import { RequestAuthDTO, ResponseLoginServiceDTO } from "../model/interface";
-import { ResponseSuccess } from "@riogz/lib.core";
 import { AUTH_ENDPOINTS } from "../config/endpoints";
+import { ResponseAuthServiceDTO } from "./interface.ts";
 
 @injectable()
 class AuthRepository {
   constructor(@inject(APIClient) private api: APIClient) {}
 
   async getAppAuthStatus(): Promise<boolean> {
-    await this.api.request<null, ResponseSuccess>({
-      method: HttpMethod.POST,
-      route: AUTH_ENDPOINTS.REFRESH,
-    });
+    try {
+      await this.api.request<null, ResponseAuthServiceDTO>({
+        method: HttpMethod.POST,
+        route: AUTH_ENDPOINTS.REFRESH,
+      });
+    } catch (error) {
+      return false;
+    }
 
     return true;
   }
