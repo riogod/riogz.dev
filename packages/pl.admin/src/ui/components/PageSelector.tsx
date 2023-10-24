@@ -19,16 +19,6 @@ const PagesSelector: FC<IProps> = ({}) => {
 
   if (app.auth && app.authComplete) {
     return <Layout />;
-    // switch (route.name) {
-    //   case CORE_ROUTES.HOME:
-    //
-    //     break;
-    //   case CORE_ROUTES.DASHBOARD:
-    //     return <Link routeName={CORE_ROUTES.HOME}>asdas</Link>;
-    //     break;
-    //   default:
-    //     return <>AAAA</>;
-    // }
   }
   return null;
 };
